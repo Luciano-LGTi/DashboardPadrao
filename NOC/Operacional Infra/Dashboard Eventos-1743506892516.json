@@ -1,0 +1,4319 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 2532,
+  "links": [],
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 43,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Gradient Background</title>\n    <style>\n        .gradient-background {\n            background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(213, 133, 0) 60%, rgb(0, 0, 0) 100%);\n            width: 100%;\n            display: flex;\n            align-items: center;\n            justify-content: space-between; /* Alinha itens nos extremos */\n            padding: 5px;\n            border-radius: 4em;\n            border: 2px solid gray;\n        }\n        .logo {\n            height: 50px;\n            width: 150px;\n            margin-right: 20px;\n            margin-left: 50px;\n        }\n        .logo-lgti {\n            height: 25px;\n            width: 100px;\n            margin-right: 50px;\n            margin-left: 50px;\n        }\n        .title {\n            margin: 0;\n            padding: 0;\n            font-size: 36px;\n            font-weight: normal;\n            font-family: 'Montserrat', Helvetica, Arial, Lucida, sans-serif;\n            color: #ffff;\n            text-align: center;\n            flex: 1; /* Faz o título ocupar o espaço restante e ser centralizado */\n        }\n    </style>\n</head>\n<body>\n    <div class=\"gradient-background\">\n        <img src=\"https://www.braspress.com/wp-content/themes/braspress/img/braspress-logo.png\" alt=\"Logotipo\" class=\"logo\">\n        <h1 class=\"title\"><strong>Eventos</strong></h1>\n        <img src=\"https://storagegrafanaimg.blob.core.windows.net/grafana-img/Logotipo_LGTI.png\" alt=\"Logotipo LGTI\" class=\"logo-lgti\">\n    </div>\n</body>\n</html>\n",
+        "mode": "html"
+      },
+      "pluginVersion": "11.3.0",
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 45,
+      "panels": [],
+      "title": "Problemas",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-orange",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 4
+      },
+      "id": 56,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "/^Average$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "9K0dZwQVz"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "/.*/"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "acknowledged": 2,
+            "count": false,
+            "disableDataAlignment": false,
+            "hostProxy": false,
+            "hostsInMaintenance": true,
+            "limit": 1001,
+            "minSeverity": 0,
+            "severities": [
+              4,
+              3,
+              5,
+              2
+            ],
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "sortProblems": "severity",
+            "useTimeRange": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": "/.*/"
+          },
+          "queryType": "5",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "showProblems": "problems",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "Problems"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "replace": false,
+            "source": "hosts"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Data",
+            "binary": {
+              "left": "timestamp",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "1000"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "0"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "source": "acknowledges"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "1"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true,
+              "0 2": true,
+              "Data": true,
+              "Problems": true,
+              "acknowledged": true,
+              "acknowledgeid": true,
+              "acknowledges": true,
+              "action": true,
+              "alerts": true,
+              "clock": true,
+              "comments": true,
+              "correlation_mode": true,
+              "correlation_tag": true,
+              "datasource": true,
+              "description": true,
+              "description 2": true,
+              "error": true,
+              "eventid": true,
+              "eventid 2": true,
+              "expression": true,
+              "groups": true,
+              "host": true,
+              "hostInMaintenance": true,
+              "hostid": true,
+              "hosts": true,
+              "items": true,
+              "maintenance": true,
+              "maintenance_status": true,
+              "manual_close": true,
+              "message": true,
+              "name": true,
+              "name 2": true,
+              "name 3": true,
+              "new_severity": true,
+              "old_severity": true,
+              "opdata": true,
+              "proxy": true,
+              "proxy_hostid": true,
+              "severity": false,
+              "showAckButton": true,
+              "state": true,
+              "suppress_until": true,
+              "suppressed": true,
+              "suppression_data": true,
+              "surname": true,
+              "tags": true,
+              "taskid": true,
+              "time": true,
+              "timestamp": true,
+              "triggerid": true,
+              "url": true,
+              "user": true,
+              "userid": true,
+              "value": true
+            },
+            "indexByName": {
+              "0": 30,
+              "1": 37,
+              "0 2": 38,
+              "Data": 1,
+              "Problems": 0,
+              "acknowledged": 11,
+              "acknowledgeid": 39,
+              "acknowledges": 12,
+              "action": 40,
+              "alerts": 19,
+              "clock": 41,
+              "comments": 15,
+              "correlation_mode": 22,
+              "correlation_tag": 23,
+              "datasource": 29,
+              "description": 6,
+              "description 2": 31,
+              "error": 25,
+              "eventid": 8,
+              "eventid 2": 42,
+              "expression": 21,
+              "groups": 16,
+              "host": 4,
+              "hostInMaintenance": 26,
+              "hostid": 32,
+              "hosts": 17,
+              "items": 18,
+              "maintenance": 27,
+              "maintenance_status": 33,
+              "manual_close": 24,
+              "message": 43,
+              "name": 9,
+              "name 2": 34,
+              "name 3": 44,
+              "new_severity": 45,
+              "old_severity": 46,
+              "proxy": 36,
+              "proxy_hostid": 35,
+              "severity": 10,
+              "showAckButton": 28,
+              "state": 5,
+              "suppress_until": 47,
+              "suppressed": 14,
+              "surname": 48,
+              "tags": 13,
+              "taskid": 49,
+              "time": 53,
+              "timestamp": 3,
+              "triggerid": 7,
+              "url": 20,
+              "user": 52,
+              "userid": 50,
+              "username": 51,
+              "value": 2
+            },
+            "renameByName": {
+              "0 2": "",
+              "acknowledged": "Não Reconhecidos",
+              "datasource": "",
+              "description": "Descrição",
+              "host": "Host",
+              "maintenance": "Manutenção",
+              "message": "Mensagem ",
+              "name": "",
+              "severity": "Serveridade",
+              "state": "Status",
+              "user": "User",
+              "username": "Username",
+              "value": "Status"
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "equal",
+                  "options": {
+                    "value": "3"
+                  }
+                },
+                "fieldName": "Serveridade"
+              }
+            ],
+            "match": "all",
+            "type": "include"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Average",
+            "mode": "reduceRow",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 4
+      },
+      "id": 33,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "/^High$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "9K0dZwQVz"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "/.*/"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "acknowledged": 2,
+            "count": false,
+            "disableDataAlignment": false,
+            "hostProxy": false,
+            "hostsInMaintenance": true,
+            "limit": 1001,
+            "minSeverity": 0,
+            "severities": [
+              4,
+              3,
+              5,
+              2
+            ],
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "sortProblems": "severity",
+            "useTimeRange": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": "/.*/"
+          },
+          "queryType": "5",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "showProblems": "problems",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "Problems"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "replace": false,
+            "source": "hosts"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Data",
+            "binary": {
+              "left": "timestamp",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "1000"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "0"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "source": "acknowledges"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "1"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true,
+              "0 2": true,
+              "Data": true,
+              "Problems": true,
+              "acknowledged": true,
+              "acknowledgeid": true,
+              "acknowledges": true,
+              "action": true,
+              "alerts": true,
+              "clock": true,
+              "comments": true,
+              "correlation_mode": true,
+              "correlation_tag": true,
+              "datasource": true,
+              "description": true,
+              "description 2": true,
+              "error": true,
+              "eventid": true,
+              "eventid 2": true,
+              "expression": true,
+              "groups": true,
+              "host": true,
+              "hostInMaintenance": true,
+              "hostid": true,
+              "hosts": true,
+              "items": true,
+              "maintenance": true,
+              "maintenance_status": true,
+              "manual_close": true,
+              "message": true,
+              "name": true,
+              "name 2": true,
+              "name 3": true,
+              "new_severity": true,
+              "old_severity": true,
+              "opdata": true,
+              "proxy": true,
+              "proxy_hostid": true,
+              "severity": false,
+              "showAckButton": true,
+              "state": true,
+              "suppress_until": true,
+              "suppressed": true,
+              "suppression_data": true,
+              "surname": true,
+              "tags": true,
+              "taskid": true,
+              "time": true,
+              "timestamp": true,
+              "triggerid": true,
+              "url": true,
+              "user": true,
+              "userid": true,
+              "value": true
+            },
+            "indexByName": {
+              "0": 30,
+              "1": 37,
+              "0 2": 38,
+              "Data": 1,
+              "Problems": 0,
+              "acknowledged": 11,
+              "acknowledgeid": 39,
+              "acknowledges": 12,
+              "action": 40,
+              "alerts": 19,
+              "clock": 41,
+              "comments": 15,
+              "correlation_mode": 22,
+              "correlation_tag": 23,
+              "datasource": 29,
+              "description": 6,
+              "description 2": 31,
+              "error": 25,
+              "eventid": 8,
+              "eventid 2": 42,
+              "expression": 21,
+              "groups": 16,
+              "host": 4,
+              "hostInMaintenance": 26,
+              "hostid": 32,
+              "hosts": 17,
+              "items": 18,
+              "maintenance": 27,
+              "maintenance_status": 33,
+              "manual_close": 24,
+              "message": 43,
+              "name": 9,
+              "name 2": 34,
+              "name 3": 44,
+              "new_severity": 45,
+              "old_severity": 46,
+              "proxy": 36,
+              "proxy_hostid": 35,
+              "severity": 10,
+              "showAckButton": 28,
+              "state": 5,
+              "suppress_until": 47,
+              "suppressed": 14,
+              "surname": 48,
+              "tags": 13,
+              "taskid": 49,
+              "time": 53,
+              "timestamp": 3,
+              "triggerid": 7,
+              "url": 20,
+              "user": 52,
+              "userid": 50,
+              "username": 51,
+              "value": 2
+            },
+            "renameByName": {
+              "0 2": "",
+              "acknowledged": "Não Reconhecidos",
+              "datasource": "",
+              "description": "Descrição",
+              "host": "Host",
+              "maintenance": "Manutenção",
+              "message": "Mensagem ",
+              "name": "",
+              "severity": "Serveridade",
+              "state": "Status",
+              "user": "User",
+              "username": "Username",
+              "value": "Status"
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "equal",
+                  "options": {
+                    "value": "4"
+                  }
+                },
+                "fieldName": "Serveridade"
+              }
+            ],
+            "match": "all",
+            "type": "include"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "High",
+            "mode": "reduceRow",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-red",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 6,
+        "y": 4
+      },
+      "id": 35,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "/^Disaster$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "9K0dZwQVz"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "/.*/"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "acknowledged": 2,
+            "count": false,
+            "disableDataAlignment": false,
+            "hostProxy": false,
+            "hostsInMaintenance": true,
+            "limit": 1001,
+            "minSeverity": 0,
+            "severities": [
+              4,
+              3,
+              5,
+              2
+            ],
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "sortProblems": "severity",
+            "useTimeRange": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": "/.*/"
+          },
+          "queryType": "5",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "showProblems": "problems",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "Problems"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "replace": false,
+            "source": "hosts"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Data",
+            "binary": {
+              "left": "timestamp",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "1000"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "0"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "source": "acknowledges"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "1"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true,
+              "0 2": true,
+              "Data": true,
+              "Problems": true,
+              "acknowledged": true,
+              "acknowledgeid": true,
+              "acknowledges": true,
+              "action": true,
+              "alerts": true,
+              "clock": true,
+              "comments": true,
+              "correlation_mode": true,
+              "correlation_tag": true,
+              "datasource": true,
+              "description": true,
+              "description 2": true,
+              "error": true,
+              "eventid": true,
+              "eventid 2": true,
+              "expression": true,
+              "groups": true,
+              "host": true,
+              "hostInMaintenance": true,
+              "hostid": true,
+              "hosts": true,
+              "items": true,
+              "maintenance": true,
+              "maintenance_status": true,
+              "manual_close": true,
+              "message": true,
+              "name": true,
+              "name 2": true,
+              "name 3": true,
+              "new_severity": true,
+              "old_severity": true,
+              "opdata": true,
+              "proxy": true,
+              "proxy_hostid": true,
+              "severity": false,
+              "showAckButton": true,
+              "state": true,
+              "suppress_until": true,
+              "suppressed": true,
+              "suppression_data": true,
+              "surname": true,
+              "tags": true,
+              "taskid": true,
+              "time": true,
+              "timestamp": true,
+              "triggerid": true,
+              "url": true,
+              "user": true,
+              "userid": true,
+              "value": true
+            },
+            "indexByName": {
+              "0": 30,
+              "1": 37,
+              "0 2": 38,
+              "Data": 1,
+              "Problems": 0,
+              "acknowledged": 11,
+              "acknowledgeid": 39,
+              "acknowledges": 12,
+              "action": 40,
+              "alerts": 19,
+              "clock": 41,
+              "comments": 15,
+              "correlation_mode": 22,
+              "correlation_tag": 23,
+              "datasource": 29,
+              "description": 6,
+              "description 2": 31,
+              "error": 25,
+              "eventid": 8,
+              "eventid 2": 42,
+              "expression": 21,
+              "groups": 16,
+              "host": 4,
+              "hostInMaintenance": 26,
+              "hostid": 32,
+              "hosts": 17,
+              "items": 18,
+              "maintenance": 27,
+              "maintenance_status": 33,
+              "manual_close": 24,
+              "message": 43,
+              "name": 9,
+              "name 2": 34,
+              "name 3": 44,
+              "new_severity": 45,
+              "old_severity": 46,
+              "proxy": 36,
+              "proxy_hostid": 35,
+              "severity": 10,
+              "showAckButton": 28,
+              "state": 5,
+              "suppress_until": 47,
+              "suppressed": 14,
+              "surname": 48,
+              "tags": 13,
+              "taskid": 49,
+              "time": 53,
+              "timestamp": 3,
+              "triggerid": 7,
+              "url": 20,
+              "user": 52,
+              "userid": 50,
+              "username": 51,
+              "value": 2
+            },
+            "renameByName": {
+              "0 2": "",
+              "acknowledged": "Não Reconhecidos",
+              "datasource": "",
+              "description": "Descrição",
+              "host": "Host",
+              "maintenance": "Manutenção",
+              "message": "Mensagem ",
+              "name": "",
+              "severity": "Serveridade",
+              "state": "Status",
+              "user": "User",
+              "username": "Username",
+              "value": "Status"
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "equal",
+                  "options": {
+                    "value": "5"
+                  }
+                },
+                "fieldName": "Serveridade"
+              }
+            ],
+            "match": "all",
+            "type": "include"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Disaster",
+            "mode": "reduceRow",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-orange",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 7,
+        "x": 10,
+        "y": 4
+      },
+      "id": 41,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "/^Total de Problemas$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "9K0dZwQVz"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "/.*/"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "acknowledged": 2,
+            "count": false,
+            "disableDataAlignment": false,
+            "hostProxy": false,
+            "hostsInMaintenance": true,
+            "limit": 1001,
+            "minSeverity": 0,
+            "severities": [
+              4,
+              5,
+              3
+            ],
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "sortProblems": "severity",
+            "useTimeRange": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": "/.*/"
+          },
+          "queryType": "5",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "showProblems": "problems",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "Problems"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "replace": false,
+            "source": "hosts"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Data",
+            "binary": {
+              "left": "timestamp",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "1000"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "0"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "source": "acknowledges"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "1"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true,
+              "0 2": true,
+              "Data": true,
+              "Problems": true,
+              "acknowledged": true,
+              "acknowledgeid": true,
+              "acknowledges": true,
+              "action": true,
+              "alerts": true,
+              "clock": true,
+              "comments": true,
+              "correlation_mode": true,
+              "correlation_tag": true,
+              "datasource": true,
+              "description": true,
+              "description 2": true,
+              "error": true,
+              "eventid": true,
+              "eventid 2": true,
+              "expression": true,
+              "groups": true,
+              "host": true,
+              "hostInMaintenance": true,
+              "hostid": true,
+              "hosts": true,
+              "items": true,
+              "maintenance": true,
+              "maintenance_status": true,
+              "manual_close": true,
+              "message": true,
+              "name": true,
+              "name 2": true,
+              "name 3": true,
+              "new_severity": true,
+              "old_severity": true,
+              "opdata": true,
+              "proxy": true,
+              "proxy_hostid": true,
+              "severity": false,
+              "showAckButton": true,
+              "state": true,
+              "suppress_until": true,
+              "suppressed": true,
+              "suppression_data": true,
+              "surname": true,
+              "tags": true,
+              "taskid": true,
+              "time": true,
+              "timestamp": true,
+              "triggerid": true,
+              "url": true,
+              "user": true,
+              "userid": true,
+              "value": true
+            },
+            "indexByName": {
+              "0": 30,
+              "1": 37,
+              "0 2": 38,
+              "Data": 1,
+              "Problems": 0,
+              "acknowledged": 11,
+              "acknowledgeid": 39,
+              "acknowledges": 12,
+              "action": 40,
+              "alerts": 19,
+              "clock": 41,
+              "comments": 15,
+              "correlation_mode": 22,
+              "correlation_tag": 23,
+              "datasource": 29,
+              "description": 6,
+              "description 2": 31,
+              "error": 25,
+              "eventid": 8,
+              "eventid 2": 42,
+              "expression": 21,
+              "groups": 16,
+              "host": 4,
+              "hostInMaintenance": 26,
+              "hostid": 32,
+              "hosts": 17,
+              "items": 18,
+              "maintenance": 27,
+              "maintenance_status": 33,
+              "manual_close": 24,
+              "message": 43,
+              "name": 9,
+              "name 2": 34,
+              "name 3": 44,
+              "new_severity": 45,
+              "old_severity": 46,
+              "proxy": 36,
+              "proxy_hostid": 35,
+              "severity": 10,
+              "showAckButton": 28,
+              "state": 5,
+              "suppress_until": 47,
+              "suppressed": 14,
+              "surname": 48,
+              "tags": 13,
+              "taskid": 49,
+              "time": 53,
+              "timestamp": 3,
+              "triggerid": 7,
+              "url": 20,
+              "user": 52,
+              "userid": 50,
+              "username": 51,
+              "value": 2
+            },
+            "renameByName": {
+              "0 2": "",
+              "acknowledged": "Não Reconhecidos",
+              "datasource": "",
+              "description": "Descrição",
+              "host": "Host",
+              "maintenance": "Manutenção",
+              "message": "Mensagem ",
+              "name": "",
+              "severity": "Serveridade",
+              "state": "Status",
+              "user": "User",
+              "username": "Username",
+              "value": "Status"
+            }
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Total de Problemas",
+            "mode": "reduceRow",
+            "reduce": {
+              "reducer": "count"
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 7,
+        "x": 17,
+        "y": 4
+      },
+      "id": 29,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "9K0dZwQVz"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "/.*/"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "acknowledged": 2,
+            "count": false,
+            "disableDataAlignment": false,
+            "hostProxy": false,
+            "hostsInMaintenance": true,
+            "limit": 1001,
+            "minSeverity": 0,
+            "severities": [
+              4,
+              5,
+              3
+            ],
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "sortProblems": "severity",
+            "useTimeRange": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": "/.*/"
+          },
+          "queryType": "5",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "showProblems": "problems",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "Problems"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "replace": false,
+            "source": "hosts"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Data",
+            "binary": {
+              "left": "timestamp",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "1000"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "0"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "source": "acknowledges"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "1"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true,
+              "0 2": true,
+              "Data": true,
+              "Problems": true,
+              "acknowledgeid": true,
+              "acknowledges": true,
+              "action": true,
+              "alerts": true,
+              "clock": true,
+              "comments": true,
+              "correlation_mode": true,
+              "correlation_tag": true,
+              "datasource": true,
+              "description": true,
+              "description 2": true,
+              "error": true,
+              "eventid": true,
+              "eventid 2": true,
+              "expression": true,
+              "groups": true,
+              "host": true,
+              "hostInMaintenance": true,
+              "hostid": true,
+              "hosts": true,
+              "items": true,
+              "maintenance": true,
+              "maintenance_status": true,
+              "manual_close": true,
+              "message": true,
+              "name": true,
+              "name 2": true,
+              "name 3": true,
+              "new_severity": true,
+              "old_severity": true,
+              "opdata": true,
+              "proxy": true,
+              "proxy_hostid": true,
+              "proxyid": true,
+              "severity": true,
+              "showAckButton": true,
+              "state": true,
+              "suppress_until": true,
+              "suppressed": true,
+              "suppression_data": true,
+              "surname": true,
+              "tags": true,
+              "taskid": true,
+              "time": true,
+              "timestamp": true,
+              "triggerid": true,
+              "url": true,
+              "user": true,
+              "userid": true,
+              "value": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "0": 30,
+              "1": 37,
+              "0 2": 38,
+              "Data": 1,
+              "Problems": 0,
+              "acknowledged": 11,
+              "acknowledgeid": 39,
+              "acknowledges": 12,
+              "action": 40,
+              "alerts": 19,
+              "clock": 41,
+              "comments": 15,
+              "correlation_mode": 22,
+              "correlation_tag": 23,
+              "datasource": 29,
+              "description": 6,
+              "description 2": 31,
+              "error": 25,
+              "eventid": 8,
+              "eventid 2": 42,
+              "expression": 21,
+              "groups": 16,
+              "host": 4,
+              "hostInMaintenance": 26,
+              "hostid": 32,
+              "hosts": 17,
+              "items": 18,
+              "maintenance": 27,
+              "maintenance_status": 33,
+              "manual_close": 24,
+              "message": 43,
+              "name": 9,
+              "name 2": 34,
+              "name 3": 44,
+              "new_severity": 45,
+              "old_severity": 46,
+              "proxy": 36,
+              "proxy_hostid": 35,
+              "severity": 10,
+              "showAckButton": 28,
+              "state": 5,
+              "suppress_until": 47,
+              "suppressed": 14,
+              "surname": 48,
+              "tags": 13,
+              "taskid": 49,
+              "time": 53,
+              "timestamp": 3,
+              "triggerid": 7,
+              "url": 20,
+              "user": 52,
+              "userid": 50,
+              "username": 51,
+              "value": 2
+            },
+            "renameByName": {
+              "0 2": "",
+              "acknowledged": "Reconhecidos",
+              "datasource": "",
+              "description": "Descrição",
+              "host": "Host",
+              "maintenance": "Manutenção",
+              "message": "Mensagem ",
+              "name": "",
+              "severity": "Serveridade",
+              "state": "Status",
+              "user": "User",
+              "username": "Username",
+              "value": "Status"
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "equal",
+                  "options": {
+                    "value": "0"
+                  }
+                },
+                "fieldName": "Reconhecidos"
+              }
+            ],
+            "match": "all",
+            "type": "exclude"
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-purple",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 7,
+        "x": 10,
+        "y": 6
+      },
+      "id": 32,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "/^Em manutenção$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "9K0dZwQVz"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "/.*/"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "acknowledged": 2,
+            "count": false,
+            "disableDataAlignment": false,
+            "hostProxy": false,
+            "hostsInMaintenance": true,
+            "limit": 1001,
+            "minSeverity": 0,
+            "severities": [
+              4,
+              5,
+              3
+            ],
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "sortProblems": "severity",
+            "useTimeRange": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": "/.*/"
+          },
+          "queryType": "5",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "showProblems": "problems",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "Problems"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "replace": false,
+            "source": "hosts"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Data",
+            "binary": {
+              "left": "timestamp",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "1000"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "0"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "source": "acknowledges"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "1"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true,
+              "0 2": true,
+              "Data": true,
+              "Problems": true,
+              "acknowledged": true,
+              "acknowledgeid": true,
+              "acknowledges": true,
+              "action": true,
+              "alerts": true,
+              "clock": true,
+              "comments": true,
+              "correlation_mode": true,
+              "correlation_tag": true,
+              "datasource": true,
+              "description": true,
+              "description 2": true,
+              "error": true,
+              "eventid": true,
+              "eventid 2": true,
+              "expression": true,
+              "groups": true,
+              "host": true,
+              "hostInMaintenance": true,
+              "hostid": true,
+              "hosts": true,
+              "items": true,
+              "maintenance": false,
+              "maintenance_status": true,
+              "manual_close": true,
+              "message": true,
+              "name": true,
+              "name 2": true,
+              "name 3": true,
+              "new_severity": true,
+              "old_severity": true,
+              "opdata": true,
+              "proxy": true,
+              "proxy_hostid": true,
+              "severity": true,
+              "showAckButton": true,
+              "state": true,
+              "suppress_until": true,
+              "suppressed": true,
+              "suppression_data": true,
+              "surname": true,
+              "tags": true,
+              "taskid": true,
+              "time": true,
+              "timestamp": true,
+              "triggerid": true,
+              "url": true,
+              "user": true,
+              "userid": true,
+              "value": true
+            },
+            "indexByName": {
+              "0": 30,
+              "1": 37,
+              "0 2": 38,
+              "Data": 1,
+              "Problems": 0,
+              "acknowledged": 11,
+              "acknowledgeid": 39,
+              "acknowledges": 12,
+              "action": 40,
+              "alerts": 19,
+              "clock": 41,
+              "comments": 15,
+              "correlation_mode": 22,
+              "correlation_tag": 23,
+              "datasource": 29,
+              "description": 6,
+              "description 2": 31,
+              "error": 25,
+              "eventid": 8,
+              "eventid 2": 42,
+              "expression": 21,
+              "groups": 16,
+              "host": 4,
+              "hostInMaintenance": 26,
+              "hostid": 32,
+              "hosts": 17,
+              "items": 18,
+              "maintenance": 27,
+              "maintenance_status": 33,
+              "manual_close": 24,
+              "message": 43,
+              "name": 9,
+              "name 2": 34,
+              "name 3": 44,
+              "new_severity": 45,
+              "old_severity": 46,
+              "proxy": 36,
+              "proxy_hostid": 35,
+              "severity": 10,
+              "showAckButton": 28,
+              "state": 5,
+              "suppress_until": 47,
+              "suppressed": 14,
+              "surname": 48,
+              "tags": 13,
+              "taskid": 49,
+              "time": 53,
+              "timestamp": 3,
+              "triggerid": 7,
+              "url": 20,
+              "user": 52,
+              "userid": 50,
+              "username": 51,
+              "value": 2
+            },
+            "renameByName": {
+              "0 2": "",
+              "acknowledged": "Não Reconhecidos",
+              "datasource": "",
+              "description": "Descrição",
+              "host": "Host",
+              "maintenance": "🛠️Manutenção",
+              "message": "Mensagem ",
+              "name": "",
+              "severity": "Serveridade",
+              "state": "Status",
+              "user": "User",
+              "username": "Username",
+              "value": "Status"
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "equal",
+                  "options": {
+                    "value": false
+                  }
+                },
+                "fieldName": "🛠️Manutenção"
+              }
+            ],
+            "match": "all",
+            "type": "exclude"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Em manutenção",
+            "mode": "reduceRow",
+            "reduce": {
+              "reducer": "sum"
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "yellow",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 7,
+        "x": 17,
+        "y": 6
+      },
+      "id": 30,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "count"
+          ],
+          "fields": "/.*/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "9K0dZwQVz"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "/.*/"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "acknowledged": 2,
+            "count": false,
+            "disableDataAlignment": false,
+            "hostProxy": false,
+            "hostsInMaintenance": true,
+            "limit": 1001,
+            "minSeverity": 0,
+            "severities": [
+              4,
+              5,
+              3
+            ],
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "sortProblems": "severity",
+            "useTimeRange": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": "/.*/"
+          },
+          "queryType": "5",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "showProblems": "problems",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "Problems"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "replace": false,
+            "source": "hosts"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Data",
+            "binary": {
+              "left": "timestamp",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "1000"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "source": "0"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "source": "acknowledges"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "1"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true,
+              "0 2": true,
+              "Data": true,
+              "Problems": true,
+              "acknowledgeid": true,
+              "acknowledges": true,
+              "action": true,
+              "alerts": true,
+              "clock": true,
+              "comments": true,
+              "correlation_mode": true,
+              "correlation_tag": true,
+              "datasource": true,
+              "description": true,
+              "description 2": true,
+              "error": true,
+              "eventid": true,
+              "eventid 2": true,
+              "expression": true,
+              "groups": true,
+              "host": true,
+              "hostInMaintenance": true,
+              "hostid": true,
+              "hosts": true,
+              "items": true,
+              "maintenance": true,
+              "maintenance_status": true,
+              "manual_close": true,
+              "message": true,
+              "name": true,
+              "name 2": true,
+              "name 3": true,
+              "new_severity": true,
+              "old_severity": true,
+              "opdata": true,
+              "proxy": true,
+              "proxy_hostid": true,
+              "proxyid": true,
+              "severity": true,
+              "showAckButton": true,
+              "state": true,
+              "suppress_until": true,
+              "suppressed": true,
+              "suppression_data": true,
+              "surname": true,
+              "tags": true,
+              "taskid": true,
+              "time": true,
+              "timestamp": true,
+              "triggerid": true,
+              "url": true,
+              "user": true,
+              "userid": true,
+              "value": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "0": 30,
+              "1": 37,
+              "0 2": 38,
+              "Data": 1,
+              "Problems": 0,
+              "acknowledged": 11,
+              "acknowledgeid": 39,
+              "acknowledges": 12,
+              "action": 40,
+              "alerts": 19,
+              "clock": 41,
+              "comments": 15,
+              "correlation_mode": 22,
+              "correlation_tag": 23,
+              "datasource": 29,
+              "description": 6,
+              "description 2": 31,
+              "error": 25,
+              "eventid": 8,
+              "eventid 2": 42,
+              "expression": 21,
+              "groups": 16,
+              "host": 4,
+              "hostInMaintenance": 26,
+              "hostid": 32,
+              "hosts": 17,
+              "items": 18,
+              "maintenance": 27,
+              "maintenance_status": 33,
+              "manual_close": 24,
+              "message": 43,
+              "name": 9,
+              "name 2": 34,
+              "name 3": 44,
+              "new_severity": 45,
+              "old_severity": 46,
+              "proxy": 36,
+              "proxy_hostid": 35,
+              "severity": 10,
+              "showAckButton": 28,
+              "state": 5,
+              "suppress_until": 47,
+              "suppressed": 14,
+              "surname": 48,
+              "tags": 13,
+              "taskid": 49,
+              "time": 53,
+              "timestamp": 3,
+              "triggerid": 7,
+              "url": 20,
+              "user": 52,
+              "userid": 50,
+              "username": 51,
+              "value": 2
+            },
+            "renameByName": {
+              "0 2": "",
+              "acknowledged": "Não Reconhecidos",
+              "datasource": "",
+              "description": "Descrição",
+              "host": "Host",
+              "maintenance": "Manutenção",
+              "message": "Mensagem ",
+              "name": "",
+              "severity": "Serveridade",
+              "state": "Status",
+              "user": "User",
+              "username": "Username",
+              "value": "Status"
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "equal",
+                  "options": {
+                    "value": "1"
+                  }
+                },
+                "fieldName": "Não Reconhecidos"
+              }
+            ],
+            "match": "all",
+            "type": "exclude"
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Data"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dateTimeAsLocal"
+              },
+              {
+                "id": "custom.width",
+                "value": 181
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 654
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "acknowledged"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "semi-dark-yellow",
+                        "index": 1,
+                        "text": "Não Reconhecido"
+                      },
+                      "1": {
+                        "color": "dark-blue",
+                        "index": 0,
+                        "text": "Reconhecido"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "severity"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "2": {
+                        "color": "orange",
+                        "index": 0,
+                        "text": "Warning"
+                      },
+                      "3": {
+                        "color": "dark-orange",
+                        "index": 1,
+                        "text": "Average"
+                      },
+                      "4": {
+                        "color": "red",
+                        "index": 2,
+                        "text": "High"
+                      },
+                      "5": {
+                        "color": "dark-red",
+                        "index": 3,
+                        "text": "Disaster"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "dark-green",
+                        "index": 1,
+                        "text": "Resolvido"
+                      },
+                      "1": {
+                        "color": "dark-red",
+                        "index": 0,
+                        "text": "Problem"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "maintenance"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "false": {
+                        "color": "dark-red",
+                        "index": 0,
+                        "text": "Não "
+                      },
+                      "true": {
+                        "color": "dark-green",
+                        "index": 1,
+                        "text": "Sim "
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Descrição"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 707
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Serveridade"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 137
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Manutenção"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 129
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Ativos"
+            },
+            "properties": [
+              {
+                "id": "custom.width"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Reconhecido"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 161
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "1"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 260
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "2"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 358
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "3"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 406
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Valor Atual"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 230
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 53,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Data"
+          }
+        ]
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "9K0dZwQVz"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "/.*/"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "acknowledged": 2,
+            "count": false,
+            "disableDataAlignment": false,
+            "hostProxy": false,
+            "hostsInMaintenance": true,
+            "limit": 1001,
+            "minSeverity": 0,
+            "severities": [
+              4,
+              5,
+              3
+            ],
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "sortProblems": "severity",
+            "useTimeRange": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": "/.*/"
+          },
+          "queryType": "5",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "showProblems": "problems",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        }
+      ],
+      "title": "",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "Problems"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "replace": false,
+            "source": "hosts"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Data",
+            "binary": {
+              "left": "timestamp",
+              "operator": "*",
+              "reducer": "sum",
+              "right": "1000"
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "jsonPaths": [],
+            "source": "0"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "source": "acknowledges"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "0"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true,
+              "0 2": true,
+              "Problems": true,
+              "acknowledgeid": true,
+              "acknowledges": true,
+              "action": true,
+              "alerts": true,
+              "clock": true,
+              "comments": true,
+              "correlation_mode": true,
+              "correlation_tag": true,
+              "datasource": true,
+              "description": true,
+              "description 2": true,
+              "description 3": true,
+              "error": true,
+              "eventid": true,
+              "eventid 2": true,
+              "expression": true,
+              "groups": true,
+              "host 1": true,
+              "host 2": true,
+              "hostInMaintenance": true,
+              "hostid": true,
+              "hosts": true,
+              "items": true,
+              "maintenance": false,
+              "maintenance_status": true,
+              "manual_close": true,
+              "message": true,
+              "name": false,
+              "name 2": false,
+              "name 3": true,
+              "new_severity": true,
+              "old_severity": true,
+              "opdata": false,
+              "proxy": true,
+              "proxy_hostid": true,
+              "proxyid": true,
+              "showAckButton": true,
+              "state": true,
+              "suppress_until": true,
+              "suppressed": true,
+              "suppression_data": true,
+              "surname": true,
+              "tags": true,
+              "taskid": true,
+              "time": true,
+              "timestamp": true,
+              "triggerid": true,
+              "url": true,
+              "userid": true,
+              "value": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "0": 32,
+              "Data": 1,
+              "Problems": 0,
+              "acknowledged": 13,
+              "acknowledges": 14,
+              "alerts": 21,
+              "comments": 17,
+              "correlation_mode": 24,
+              "correlation_tag": 25,
+              "datasource": 31,
+              "description": 8,
+              "description 2": 33,
+              "description 3": 40,
+              "error": 27,
+              "eventid": 10,
+              "expression": 23,
+              "groups": 18,
+              "host 1": 35,
+              "host 2": 41,
+              "hostInMaintenance": 28,
+              "hostid 1": 36,
+              "hostid 2": 42,
+              "hosts": 19,
+              "items": 20,
+              "maintenance": 29,
+              "maintenance_status 1": 37,
+              "maintenance_status 2": 43,
+              "manual_close": 26,
+              "name": 4,
+              "name 2": 3,
+              "name 3": 5,
+              "opdata": 11,
+              "proxy 1": 39,
+              "proxy 2": 45,
+              "proxyid 1": 38,
+              "proxyid 2": 44,
+              "severity": 12,
+              "showAckButton": 30,
+              "state": 7,
+              "suppressed": 16,
+              "suppression_data": 34,
+              "tags": 15,
+              "timestamp": 6,
+              "triggerid": 9,
+              "url": 22,
+              "value": 2
+            },
+            "renameByName": {
+              "0 2": "",
+              "acknowledged": "Reconhecido",
+              "datasource": "",
+              "description": "Descrição",
+              "host": "Ativos",
+              "maintenance": "Manutenção",
+              "message": "Mensagem ",
+              "name": "Descrição",
+              "name 2": "Ativos",
+              "name 3": "3",
+              "opdata": "Valor Atual",
+              "severity": "Serveridade",
+              "state": "Status",
+              "user": "Usuário",
+              "username": "Username",
+              "value": "Status"
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "equal",
+                  "options": {
+                    "value": "0"
+                  }
+                },
+                "fieldName": "Status"
+              }
+            ],
+            "match": "all",
+            "type": "exclude"
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "id": 60,
+      "panels": [
+        {
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+          },
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Data"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "name"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "acknowledged"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "severity"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "value"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "maintenance"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Descrição"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Status"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Serveridade"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Manutenção"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Ativos"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Reconhecido"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "1"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "2"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "3"
+                },
+                "properties": []
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Valor Atual"
+                },
+                "properties": []
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 15,
+            "w": 24,
+            "x": 0,
+            "y": 21
+          },
+          "id": 59,
+          "options": {
+            "dedupStrategy": "none",
+            "enableLogDetails": true,
+            "prettifyLogMessage": false,
+            "showCommonLabels": false,
+            "showLabels": true,
+            "showTime": true,
+            "sortOrder": "Descending",
+            "wrapLogMessage": true
+          },
+          "pluginVersion": "11.3.0",
+          "targets": [
+            {
+              "application": {
+                "filter": ""
+              },
+              "countTriggersBy": "",
+              "datasource": {
+                "type": "Zabbix-Braspress-Deploy-Dashs-NOC",
+                "uid": "9K0dZwQVz"
+              },
+              "evaltype": "0",
+              "functions": [],
+              "group": {
+                "filter": "/.*/"
+              },
+              "host": {
+                "filter": "/.*/"
+              },
+              "item": {
+                "filter": ""
+              },
+              "itemTag": {
+                "filter": ""
+              },
+              "macro": {
+                "filter": ""
+              },
+              "options": {
+                "acknowledged": 2,
+                "count": false,
+                "disableDataAlignment": false,
+                "hostProxy": false,
+                "hostsInMaintenance": true,
+                "limit": 1001,
+                "minSeverity": 0,
+                "severities": [
+                  4,
+                  5,
+                  3
+                ],
+                "showDisabledItems": false,
+                "skipEmptyValues": false,
+                "sortProblems": "severity",
+                "useTimeRange": false,
+                "useTrends": "default",
+                "useZabbixValueMapping": false
+              },
+              "proxy": {
+                "filter": "/.*/"
+              },
+              "queryType": "5",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "schema": 12,
+              "showProblems": "problems",
+              "table": {
+                "skipEmptyValues": false
+              },
+              "tags": {
+                "filter": ""
+              },
+              "textFilter": "",
+              "trigger": {
+                "filter": ""
+              }
+            }
+          ],
+          "title": "",
+          "transformations": [
+            {
+              "id": "extractFields",
+              "options": {
+                "format": "json",
+                "source": "Problems"
+              }
+            },
+            {
+              "id": "extractFields",
+              "options": {
+                "format": "json",
+                "replace": false,
+                "source": "hosts"
+              }
+            },
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "Data",
+                "binary": {
+                  "left": {
+                    "matcher": {
+                      "id": "byName",
+                      "options": "timestamp"
+                    }
+                  },
+                  "operator": "*",
+                  "right": {
+                    "fixed": "1000"
+                  }
+                },
+                "mode": "binary",
+                "reduce": {
+                  "reducer": "sum"
+                },
+                "replaceFields": false
+              }
+            },
+            {
+              "id": "extractFields",
+              "options": {
+                "format": "json",
+                "jsonPaths": [],
+                "source": "0"
+              }
+            },
+            {
+              "id": "extractFields",
+              "options": {
+                "format": "json",
+                "jsonPaths": [
+                  {
+                    "alias": "menssagem 1",
+                    "path": "[0].message"
+                  },
+                  {
+                    "alias": "menssagem 2",
+                    "path": "[1].message"
+                  },
+                  {
+                    "alias": "menssagem 3",
+                    "path": "[2].message"
+                  },
+                  {
+                    "alias": "menssagem 4",
+                    "path": "[3].message"
+                  },
+                  {
+                    "alias": "menssagem 5",
+                    "path": "[4].message"
+                  }
+                ],
+                "source": "acknowledges"
+              }
+            },
+            {
+              "id": "extractFields",
+              "options": {
+                "format": "json",
+                "source": "1"
+              }
+            },
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "0": true,
+                  "1": true,
+                  "2": true,
+                  "3": true,
+                  "0 2": true,
+                  "Problems": true,
+                  "acknowledged": true,
+                  "acknowledgeid": true,
+                  "acknowledges": true,
+                  "action": true,
+                  "alerts": true,
+                  "clock": true,
+                  "comments": true,
+                  "correlation_mode": true,
+                  "correlation_tag": true,
+                  "datasource": true,
+                  "description": true,
+                  "description 2": true,
+                  "description 3": true,
+                  "error": true,
+                  "eventid": true,
+                  "eventid 2": true,
+                  "expression": true,
+                  "groups": true,
+                  "host 1": true,
+                  "host 2": true,
+                  "hostInMaintenance": true,
+                  "hostid": true,
+                  "hosts": true,
+                  "items": true,
+                  "maintenance": true,
+                  "maintenance_status": true,
+                  "manual_close": true,
+                  "message": true,
+                  "name": false,
+                  "name 2": false,
+                  "name 3": true,
+                  "new_severity": true,
+                  "old_severity": true,
+                  "opdata": true,
+                  "proxy": true,
+                  "proxy_hostid": true,
+                  "proxyid": true,
+                  "severity": true,
+                  "showAckButton": true,
+                  "state": true,
+                  "suppress_until": true,
+                  "suppressed": true,
+                  "suppression_data": true,
+                  "surname": true,
+                  "tags": true,
+                  "taskid": true,
+                  "time": true,
+                  "timestamp": true,
+                  "triggerid": true,
+                  "url": true,
+                  "user": true,
+                  "userid": true,
+                  "value": true
+                },
+                "includeByName": {},
+                "indexByName": {
+                  "0": 32,
+                  "Data": 0,
+                  "Problems": 1,
+                  "[2].message": 46,
+                  "acknowledged": 13,
+                  "acknowledges": 14,
+                  "alerts": 21,
+                  "comments": 17,
+                  "correlation_mode": 24,
+                  "correlation_tag": 25,
+                  "datasource": 31,
+                  "description": 8,
+                  "description 2": 33,
+                  "description 3": 40,
+                  "error": 27,
+                  "eventid": 10,
+                  "expression": 23,
+                  "groups": 18,
+                  "host 1": 35,
+                  "host 2": 41,
+                  "hostInMaintenance": 28,
+                  "hostid 1": 36,
+                  "hostid 2": 42,
+                  "hosts": 19,
+                  "items": 20,
+                  "maintenance": 29,
+                  "maintenance_status 1": 37,
+                  "maintenance_status 2": 43,
+                  "manual_close": 26,
+                  "name": 4,
+                  "name 2": 3,
+                  "name 3": 5,
+                  "opdata": 11,
+                  "proxy 1": 39,
+                  "proxy 2": 45,
+                  "proxyid 1": 38,
+                  "proxyid 2": 44,
+                  "severity": 12,
+                  "showAckButton": 30,
+                  "state": 7,
+                  "suppressed": 16,
+                  "suppression_data": 34,
+                  "tags": 15,
+                  "timestamp": 6,
+                  "triggerid": 9,
+                  "url": 22,
+                  "value": 2
+                },
+                "renameByName": {
+                  "0 2": "",
+                  "acknowledged": "Reconhecido",
+                  "datasource": "",
+                  "description": "Descrição",
+                  "host": "Ativos",
+                  "maintenance": "Manutenção",
+                  "message": "Mensagem ",
+                  "name": "Descrição",
+                  "name 2": "Ativos",
+                  "name 3": "3",
+                  "opdata": "Valor Atual",
+                  "severity": "Serveridade",
+                  "state": "Status",
+                  "user": "Usuário",
+                  "username": "Username",
+                  "value": "Status"
+                }
+              }
+            },
+            {
+              "id": "convertFieldType",
+              "options": {
+                "conversions": [
+                  {
+                    "destinationType": "time",
+                    "targetField": "Data"
+                  }
+                ],
+                "fields": {}
+              }
+            }
+          ],
+          "type": "logs"
+        }
+      ],
+      "title": "Insights de Eventos",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 21
+      },
+      "id": 57,
+      "panels": [],
+      "title": "Histórico",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Data"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "dateTimeAsLocal"
+              },
+              {
+                "id": "custom.width",
+                "value": 181
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 654
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "acknowledged"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "semi-dark-yellow",
+                        "index": 1,
+                        "text": "Não Reconhecido"
+                      },
+                      "1": {
+                        "color": "dark-blue",
+                        "index": 0,
+                        "text": "Reconhecido"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "severity"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "2": {
+                        "color": "orange",
+                        "index": 0,
+                        "text": "Warning"
+                      },
+                      "3": {
+                        "color": "dark-orange",
+                        "index": 1,
+                        "text": "Average"
+                      },
+                      "4": {
+                        "color": "red",
+                        "index": 2,
+                        "text": "High"
+                      },
+                      "5": {
+                        "color": "dark-red",
+                        "index": 3,
+                        "text": "Disaster"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "value"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "dark-green",
+                        "index": 1,
+                        "text": "Resolvido"
+                      },
+                      "1": {
+                        "color": "dark-red",
+                        "index": 0,
+                        "text": "Problem"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "maintenance"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "false": {
+                        "color": "dark-red",
+                        "index": 0,
+                        "text": "Não "
+                      },
+                      "true": {
+                        "color": "dark-green",
+                        "index": 1,
+                        "text": "Sim "
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Descrição"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 707
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Serveridade"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 137
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Manutenção"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 129
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Ativos"
+            },
+            "properties": [
+              {
+                "id": "custom.width"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Reconhecido"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 161
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "1"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 260
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "2"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 358
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "3"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 406
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Valor Atual"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 230
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 22
+      },
+      "hideTimeOverride": true,
+      "id": 58,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Data"
+          }
+        ]
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "9K0dZwQVz"
+          },
+          "evaltype": "0",
+          "functions": [],
+          "group": {
+            "filter": "/.*/"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "acknowledged": 2,
+            "count": false,
+            "disableDataAlignment": false,
+            "hostProxy": false,
+            "hostsInMaintenance": true,
+            "limit": 1001,
+            "minSeverity": 0,
+            "severities": [
+              4,
+              5,
+              3
+            ],
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "sortProblems": "severity",
+            "useTimeRange": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": "/.*/"
+          },
+          "queryType": "5",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "showProblems": "history",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          }
+        }
+      ],
+      "timeFrom": "2d",
+      "title": "",
+      "transformations": [
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "Problems"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "replace": false,
+            "source": "hosts"
+          }
+        },
+        {
+          "id": "calculateField",
+          "options": {
+            "alias": "Data",
+            "binary": {
+              "left": {
+                "matcher": {
+                  "id": "byName",
+                  "options": "timestamp"
+                }
+              },
+              "operator": "*",
+              "right": {
+                "fixed": "1000"
+              }
+            },
+            "mode": "binary",
+            "reduce": {
+              "reducer": "sum"
+            },
+            "replaceFields": false
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "jsonPaths": [],
+            "source": "0"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "auto",
+            "source": "acknowledges"
+          }
+        },
+        {
+          "id": "extractFields",
+          "options": {
+            "format": "json",
+            "source": "0"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true,
+              "4": true,
+              "5": true,
+              "0 2": true,
+              "Problems": true,
+              "acknowledgeid": true,
+              "acknowledges": true,
+              "action": true,
+              "alerts": true,
+              "clock": true,
+              "comments": true,
+              "correlation_mode": true,
+              "correlation_tag": true,
+              "datasource": true,
+              "description": true,
+              "description 2": true,
+              "description 3": true,
+              "error": true,
+              "eventid": true,
+              "eventid 2": true,
+              "expression": true,
+              "groups": true,
+              "host 1": true,
+              "host 2": true,
+              "hostInMaintenance": true,
+              "hostid": true,
+              "hosts": true,
+              "items": true,
+              "maintenance": false,
+              "maintenance_status": true,
+              "manual_close": true,
+              "message": true,
+              "name": false,
+              "name 2": false,
+              "name 3": true,
+              "new_severity": true,
+              "old_severity": true,
+              "opdata": false,
+              "proxy": true,
+              "proxy_hostid": true,
+              "proxyid": true,
+              "showAckButton": true,
+              "state": true,
+              "suppress_until": true,
+              "suppressed": true,
+              "suppression_data": true,
+              "surname": true,
+              "tags": true,
+              "taskid": true,
+              "time": true,
+              "timestamp": true,
+              "triggerid": true,
+              "url": true,
+              "userid": true,
+              "value": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "0": 32,
+              "Data": 1,
+              "Problems": 0,
+              "acknowledged": 13,
+              "acknowledges": 14,
+              "alerts": 21,
+              "comments": 17,
+              "correlation_mode": 24,
+              "correlation_tag": 25,
+              "datasource": 31,
+              "description": 8,
+              "description 2": 33,
+              "description 3": 40,
+              "error": 27,
+              "eventid": 10,
+              "expression": 23,
+              "groups": 18,
+              "host 1": 35,
+              "host 2": 41,
+              "hostInMaintenance": 28,
+              "hostid 1": 36,
+              "hostid 2": 42,
+              "hosts": 19,
+              "items": 20,
+              "maintenance": 29,
+              "maintenance_status 1": 37,
+              "maintenance_status 2": 43,
+              "manual_close": 26,
+              "name": 4,
+              "name 2": 3,
+              "name 3": 5,
+              "opdata": 11,
+              "proxy 1": 39,
+              "proxy 2": 45,
+              "proxyid 1": 38,
+              "proxyid 2": 44,
+              "severity": 12,
+              "showAckButton": 30,
+              "state": 7,
+              "suppressed": 16,
+              "suppression_data": 34,
+              "tags": 15,
+              "timestamp": 6,
+              "triggerid": 9,
+              "url": 22,
+              "value": 2
+            },
+            "renameByName": {
+              "0 2": "",
+              "acknowledged": "Reconhecido",
+              "datasource": "",
+              "description": "Descrição",
+              "host": "Ativos",
+              "maintenance": "Manutenção",
+              "message": "Mensagem ",
+              "name": "Descrição",
+              "name 2": "Ativos",
+              "name 3": "3",
+              "opdata": "Valor Atual",
+              "severity": "Serveridade",
+              "state": "Status",
+              "user": "Usuário",
+              "username": "Username",
+              "value": "Status"
+            }
+          }
+        },
+        {
+          "id": "filterByValue",
+          "options": {
+            "filters": [
+              {
+                "config": {
+                  "id": "equal",
+                  "options": {
+                    "value": "0"
+                  }
+                },
+                "fieldName": "Status"
+              }
+            ],
+            "match": "all",
+            "type": "exclude"
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 36
+      },
+      "id": 54,
+      "panels": [
+        {
+          "datasource": {
+            "default": true,
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+          },
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 12,
+            "w": 24,
+            "x": 0,
+            "y": 82
+          },
+          "id": 55,
+          "options": {
+            "ackEventColor": "rgb(56, 219, 156)",
+            "ackField": true,
+            "ageField": false,
+            "allowDangerousHTML": false,
+            "customLastChangeFormat": false,
+            "descriptionAtNewLine": false,
+            "descriptionField": true,
+            "fontSize": "100%",
+            "highlightBackground": false,
+            "highlightNewEvents": false,
+            "highlightNewerThan": "1h",
+            "hostField": true,
+            "hostGroups": false,
+            "hostProxy": false,
+            "hostTechNameField": false,
+            "lastChangeFormat": "",
+            "layout": "table",
+            "markAckEvents": false,
+            "okEventColor": "rgb(56, 189, 113)",
+            "opdataField": false,
+            "pageSize": 10,
+            "problemTimeline": true,
+            "resizedColumns": [
+              {
+                "id": "host",
+                "value": 253.671875
+              }
+            ],
+            "severityField": true,
+            "showTags": false,
+            "sortProblems": "lastchange",
+            "statusField": true,
+            "statusIcon": false,
+            "triggerSeverity": [
+              {
+                "color": "rgb(108, 108, 108)",
+                "priority": 0,
+                "severity": "Not classified",
+                "show": true
+              },
+              {
+                "color": "rgb(120, 158, 183)",
+                "priority": 1,
+                "severity": "Information",
+                "show": true
+              },
+              {
+                "color": "rgb(175, 180, 36)",
+                "priority": 2,
+                "severity": "Warning",
+                "show": true
+              },
+              {
+                "color": "rgb(255, 137, 30)",
+                "priority": 3,
+                "severity": "Average",
+                "show": true
+              },
+              {
+                "color": "rgb(255, 101, 72)",
+                "priority": 4,
+                "severity": "High",
+                "show": true
+              },
+              {
+                "color": "rgb(215, 0, 0)",
+                "priority": 5,
+                "severity": "Disaster",
+                "show": true
+              }
+            ]
+          },
+          "pluginVersion": "4.5.4",
+          "targets": [
+            {
+              "application": {
+                "filter": ""
+              },
+              "countTriggersBy": "",
+              "datasource": {
+                "type": "alexanderzobnin-zabbix-datasource",
+                "uid": "f8c53e49-817b-444b-88ac-664ed74432b5"
+              },
+              "evaltype": "0",
+              "functions": [],
+              "group": {
+                "filter": "Braspress/Server"
+              },
+              "host": {
+                "filter": "/BTU-AD02|BTU_AD01/"
+              },
+              "item": {
+                "filter": ""
+              },
+              "itemTag": {
+                "filter": ""
+              },
+              "macro": {
+                "filter": ""
+              },
+              "options": {
+                "acknowledged": 2,
+                "count": false,
+                "disableDataAlignment": false,
+                "hostProxy": false,
+                "hostsInMaintenance": false,
+                "limit": 1001,
+                "minSeverity": 0,
+                "showDisabledItems": false,
+                "skipEmptyValues": false,
+                "sortProblems": "default",
+                "useTimeRange": false,
+                "useTrends": "default",
+                "useZabbixValueMapping": false
+              },
+              "proxy": {
+                "filter": ""
+              },
+              "queryType": "5",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "schema": 12,
+              "showProblems": "history",
+              "table": {
+                "skipEmptyValues": false
+              },
+              "tags": {
+                "filter": ""
+              },
+              "textFilter": "",
+              "trigger": {
+                "filter": "/AUDIT ACTIVE DIRECTORY/"
+              }
+            }
+          ],
+          "title": "",
+          "type": "alexanderzobnin-zabbix-triggers-panel"
+        }
+      ],
+      "title": "Auditoria AD",
+      "type": "row"
+    }
+  ],
+  "preload": false,
+  "refresh": "1m",
+  "schemaVersion": 40,
+  "tags": [
+    "Operacional"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Dashboard Eventos",
+  "uid": "dashboard-eventos-v2",
+  "version": 51,
+  "weekStart": ""
+}

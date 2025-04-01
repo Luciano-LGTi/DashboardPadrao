@@ -1,0 +1,965 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 2569,
+  "links": [],
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<style>\n\n body {\n    margin: 0;\n    font-family: Arial, sans-serif;\n}\n\n.custom-header {\n    background-color: #333;\n    color: #fff;\n    padding: 20px;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n\n.custom-logo img {\n    max-width: 65px;\n}\n.logo-text {\n    font-size: 20px; /* Tamanho do texto */\n    margin-left: 30px; /* Espaçamento entre o texto e o logo */\n}\n\nnav ul {\n    list-style-type: none;\n    margin: 0;\n    padding: 0;\n    display: flex;\n}\n\n.custom-nav-links {\n    display: flex;\n    justify-content: center;\n    align-items: center ;\n}\n\n.custom-nav-links li {\n    margin-right:20px;\n    text-align: center;\n}\n\n.custom-nav-links a {\n    color: #fff;\n    text-decoration: none;\n}\n\n.custom-nav-links a:hover {\n    color: pink;\n}\n\n.custom-dropdown:hover .custom-dropdown-content {\n    display: block;\n}\n\n.custom-dropdown-content {\n    display: none;\n    position: absolute;\n    background-color: #333;\n    min-width: 150px;\n    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);\n}\n\n.custom-dropdown-content li {\n    padding: 10px;\n}\n\n.custom-arrow {\n    border: solid white;\n    border-width: 0 3px 3px 0;\n    display: inline-block;\n    padding: 3px;\n}\n\n.down {\n    transform: rotate(45deg);\n}\n\n@media screen and (max-width: 768px) {\n    .custom-nav-links {\n        display: none;\n        flex-direction: column;\n        background-color: #333;\n        position: absolute;\n        top: 80px;\n        left: 0;\n        width: 100%;\n    }\n    .custom-nav-links li {\n        text-align: center;\n        margin: 0;\n    }\n    .custom-nav-links li a {\n        padding: 10px;\n        display: block;\n        border-bottom: 1px solid #777;\n    }\n    .custom-nav-links li:last-child a {\n        border-bottom: none;\n    }\n    .custom-nav-links.show {\n        display: flex;\n    }\n    .custom-dropdown-content {\n        position: static;\n    }\n    }\n\n@media screen and (max-width: 768px) {\n    .logo-text {\n        display: none; /* Ocultar o texto em dispositivos menores */\n    }\n}\n\n\n  </style>\n\n<!DOCTYPE html>\n<html lang=\"en\">\n\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Header Responsivo</title>\n     <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css\" integrity=\"sha384-+ccJqDOB65iT8rOiVYDrC5bM5T9eyGrBfMjQrKDO5wkeDTcg9q7lsTz2tx3bo2R5\" crossorigin=\"anonymous\">\n    <!-- Incluindo Font Awesome -->\n    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css\" integrity=\"sha384-+ccJqDOB65iT8rOiVYDrC5bM5T9eyGrBfMjQrKDO5wkeDTcg9q7lsTz2tx3bo2R5\" crossorigin=\"anonymous\">\n</head>\n<body>\n    <header class=\"custom-header\">\n        <div class=\"custom-logo\">\n           \n         <a href=\"#\"><img src=\"\thttps://www.lgti.com.br/wp-content/uploads/2021/10/01_Si%CC%81mbolo_LGTI.png\" alt=\"Logo\"></a>\n          <span class=\"logo-text\">Relatório de Disponibilidade</span>\n        </div>\n        <nav>\n            <ul class=\"custom-nav-links\">\n                <li><a href=\"https://portal.cloudash.com.br/d/dashboard-relatorio/dashboard-relatorio?orgId=106&refresh=2h\"><i class=\"fa fa-file-text-o\"></i> Relatório</a></li>\n                <li><a href=\"https://portal.cloudash.com.br/d/dashboard-ativos/dashboard-ativos?orgId=106&refresh=15m\"><i class=\"fa fa-info-circle\"></i> Informações Ativos</a></li>\n                <li><a href=\"https://portal.cloudash.com.br/d/dashboard-manutencao/dashboard-manutencao?orgId=106&refresh=5m\"><i class=\"fa fa-calendar\"></i> Janelas de Manutenção</a></li>\n               \n               \n            </ul>\n        </nav>\n    </header>\n    <script src=\"script.js\"></script>\n</body>\n</html>\n<script>\n    const navSlide = () => {\n    const burger = document.querySelector('.burger');\n    const nav = document.querySelector('.custom-nav-links');\n\n    burger.addEventListener('click', () => {\n        nav.classList.toggle('show');\n    });\n}\n\nnavSlide();\n</script>",
+        "mode": "html"
+      },
+      "pluginVersion": "11.3.0",
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 4
+      },
+      "id": 5,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<div style=\"background-color:#333; width: 100%; display: flex; justify-content:  space-around; align-items: center; padding: 10px;border-radius: 4em;\" \">\n  \n  <h1 style=\"margin: 0px; padding:0px; font-size: 24px; color:#ffff;\">${__from:date:DD/MM/YYYY HH:mm:ss} Até ${__to:date:DD/MM/YYYY HH:mm:ss}</h1>\n   \n</div>\n\n\n\n\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "11.3.0",
+      "title": "",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "adzhatvz6czcwe"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Incidente"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 608
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Host"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 399
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Disponibilidade"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "basic",
+                  "type": "gauge",
+                  "valueDisplayMode": "text"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-red",
+                      "value": null
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 80
+                    },
+                    {
+                      "color": "dark-orange",
+                      "value": 89
+                    },
+                    {
+                      "color": "dark-green",
+                      "value": 90
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Indisponibilidade"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "basic",
+                  "type": "gauge",
+                  "valueDisplayMode": "text"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-green",
+                      "value": null
+                    },
+                    {
+                      "color": "dark-green",
+                      "value": 10
+                    },
+                    {
+                      "color": "dark-orange",
+                      "value": 50
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 90
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 17,
+        "x": 0,
+        "y": 6
+      },
+      "id": 18,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Disponibilidade"
+          }
+        ]
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "dataset": "performance_schema",
+          "datasource": {
+            "type": "mysql",
+            "uid": "adzhatvz6czcwe"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT a.*\r\n    ,(SELECT GROUP_CONCAT(distinct eth.ip SEPARATOR ' | ') \r\n      FROM interface eth \r\n      WHERE eth.hostid = a.hostid \r\n      ORDER BY ip ASC) AS ip\r\n    ,(SELECT sla_avg * 100 \r\n      FROM (\r\n          SELECT avg(value_avg) as sla_avg\r\n          FROM trends\r\n          WHERE itemid = a.itemid\r\n            AND $__unixEpochFilter(clock)\r\n    \r\n          UNION ALL\r\n\r\n          SELECT avg(value_avg) as sla_avg\r\n          FROM trends_uint\r\n          WHERE itemid = a.itemid\r\n            AND $__unixEpochFilter(clock)\r\n      ) AS t\r\n      WHERE sla_avg IS NOT NULL\r\n    ) AS sla_media\r\n    ,(100 - (SELECT sla_avg * 100 \r\n      FROM (\r\n          SELECT avg(value_avg) as sla_avg\r\n          FROM trends\r\n          WHERE itemid = a.itemid\r\n            AND $__unixEpochFilter(clock)\r\n    \r\n          UNION ALL\r\n\r\n          SELECT avg(value_avg) as sla_avg\r\n          FROM trends_uint\r\n          WHERE itemid = a.itemid\r\n            AND $__unixEpochFilter(clock)\r\n      ) AS t\r\n      WHERE sla_avg IS NOT NULL\r\n    )) AS indisponibilidade_media\r\nFROM (\r\n    SELECT i.itemid, h.hostid, h.name, h.host \r\n    FROM hosts AS h \r\n    INNER JOIN items AS i ON h.hostid = i.hostid\r\n    WHERE i.key_ = 'icmpping'\r\n    \r\n        -- somente hosts e items ativos\r\n        AND h.status = '0'\r\n        AND i.status = '0'\r\n\r\n        -- grupo \r\n        AND h.hostid IN (\r\n            SELECT distinct hostid\r\n            FROM hosts_groups h, hstgrp h2\r\n            WHERE h.groupid = h2.groupid\r\n            AND h2.NAME IN ('${grupo:csv}')\r\n        )\r\n) AS a\r\nHAVING sla_media IS NOT NULL\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Disponibilidade dos Ativos Monitorados:",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "grupo": true,
+              "host": true,
+              "hostid": true,
+              "indisponibilidade_media": true,
+              "itemid": true
+            },
+            "indexByName": {
+              "host": 0,
+              "hostid": 2,
+              "indisponibilidade_media": 5,
+              "ip": 4,
+              "itemid": 1,
+              "name": 3,
+              "sla_media": 6
+            },
+            "renameByName": {
+              "grupo": "Grupo",
+              "host": "Host",
+              "incidente": "Incidente",
+              "indisponibilidade_media": "Indisponibilidade",
+              "ip": "IP",
+              "name": "Host",
+              "qtde": "Quantidade",
+              "sla_media": "Disponibilidade"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "adzhatvz6czcwe"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Disponibilidade"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Indisponibilidade"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Quantidade 100% Indisponibilidade"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Quantidade 0% Indisponibilidade"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Quantidade de Indisponibilidade entre 0% e 100%"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Indisponibilidade 100%"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Disponibilidade 100%"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Indisponibilidade entre 0% e 100%"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Indisponibilidade 0%"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Disponibilidade 89% a 90%"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Disponibilidade 80% a 89%"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Disponibilidade 0% a 80%"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Disponibilidade 90% a 100%"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 7,
+        "x": 17,
+        "y": 6
+      },
+      "id": 21,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "dataset": "performance_schema",
+          "datasource": {
+            "type": "mysql",
+            "uid": "adzhatvz6czcwe"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*) AS 'Disponibilidade 90% a 100%'\r\nFROM (\r\n    SELECT a.*,\r\n        (SELECT GROUP_CONCAT(DISTINCT eth.ip SEPARATOR ' | ') \r\n         FROM interface eth \r\n         WHERE eth.hostid = a.hostid \r\n         ORDER BY ip ASC) AS ip,\r\n        (SELECT (sla_avg * 100) \r\n         FROM (\r\n             SELECT AVG(value_avg) AS sla_avg\r\n             FROM trends\r\n             WHERE itemid = a.itemid\r\n               AND $__unixEpochFilter(clock)\r\n\r\n             UNION ALL\r\n\r\n             SELECT AVG(value_avg) AS sla_avg\r\n             FROM trends_uint\r\n             WHERE itemid = a.itemid\r\n               AND $__unixEpochFilter(clock)\r\n         ) AS t\r\n         WHERE sla_avg IS NOT NULL\r\n        ) AS sla_disponibilidade\r\n    FROM (\r\n        SELECT i.itemid, h.hostid, h.name, h.host \r\n        FROM hosts AS h \r\n        INNER JOIN items AS i ON h.hostid = i.hostid\r\n        WHERE i.key_ = 'icmpping'\r\n\r\n            -- somente hosts e items ativos\r\n            AND h.status = '0'\r\n            AND i.status = '0'\r\n\r\n            -- grupo \r\n            AND h.hostid IN (\r\n                SELECT DISTINCT hostid\r\n                FROM hosts_groups h\r\n                INNER JOIN hstgrp h2 ON h.groupid = h2.groupid\r\n                WHERE h2.NAME IN ('${grupo:csv}')\r\n            )\r\n    ) AS a\r\n) AS resultado_final\r\nWHERE sla_disponibilidade > 90;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "performance_schema",
+          "datasource": {
+            "type": "mysql",
+            "uid": "adzhatvz6czcwe"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*) AS 'Disponibilidade 89% a 90%'\r\nFROM (\r\n    SELECT a.*,\r\n        (SELECT GROUP_CONCAT(DISTINCT eth.ip SEPARATOR ' | ') \r\n         FROM interface eth \r\n         WHERE eth.hostid = a.hostid \r\n         ORDER BY ip ASC) AS ip,\r\n        (SELECT (sla_avg * 100) \r\n         FROM (\r\n             SELECT AVG(value_avg) AS sla_avg\r\n             FROM trends\r\n             WHERE itemid = a.itemid\r\n               AND $__unixEpochFilter(clock)\r\n\r\n             UNION ALL\r\n\r\n             SELECT AVG(value_avg) AS sla_avg\r\n             FROM trends_uint\r\n             WHERE itemid = a.itemid\r\n               AND $__unixEpochFilter(clock)\r\n         ) AS t\r\n         WHERE sla_avg IS NOT NULL\r\n        ) AS sla_disponibilidade\r\n    FROM (\r\n        SELECT i.itemid, h.hostid, h.name, h.host \r\n        FROM hosts AS h \r\n        INNER JOIN items AS i ON h.hostid = i.hostid\r\n        WHERE i.key_ = 'icmpping'\r\n\r\n            -- somente hosts e items ativos\r\n            AND h.status = '0'\r\n            AND i.status = '0'\r\n\r\n            -- grupo \r\n            AND h.hostid IN (\r\n                SELECT DISTINCT hostid\r\n                FROM hosts_groups h\r\n                INNER JOIN hstgrp h2 ON h.groupid = h2.groupid\r\n                WHERE h2.NAME IN ('${grupo:csv}')\r\n            )\r\n    ) AS a\r\n) AS resultado_final\r\nWHERE sla_disponibilidade > 89 AND sla_disponibilidade < 90;\r\n",
+          "refId": "B",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "performance_schema",
+          "datasource": {
+            "type": "mysql",
+            "uid": "adzhatvz6czcwe"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*) AS 'Disponibilidade 0% a 80%'\r\nFROM (\r\n    SELECT a.*,\r\n        (SELECT GROUP_CONCAT(DISTINCT eth.ip SEPARATOR ' | ') \r\n         FROM interface eth \r\n         WHERE eth.hostid = a.hostid \r\n         ORDER BY ip ASC) AS ip,\r\n        (SELECT (sla_avg * 100) \r\n         FROM (\r\n             SELECT AVG(value_avg) AS sla_avg\r\n             FROM trends\r\n             WHERE itemid = a.itemid\r\n               AND $__unixEpochFilter(clock)\r\n\r\n             UNION ALL\r\n\r\n             SELECT AVG(value_avg) AS sla_avg\r\n             FROM trends_uint\r\n             WHERE itemid = a.itemid\r\n               AND $__unixEpochFilter(clock)\r\n         ) AS t\r\n         WHERE sla_avg IS NOT NULL\r\n        ) AS sla_disponibilidade\r\n    FROM (\r\n        SELECT i.itemid, h.hostid, h.name, h.host \r\n        FROM hosts AS h \r\n        INNER JOIN items AS i ON h.hostid = i.hostid\r\n        WHERE i.key_ = 'icmpping'\r\n\r\n            -- somente hosts e items ativos\r\n            AND h.status = '0'\r\n            AND i.status = '0'\r\n\r\n            -- grupo \r\n            AND h.hostid IN (\r\n                SELECT DISTINCT hostid\r\n                FROM hosts_groups h\r\n                INNER JOIN hstgrp h2 ON h.groupid = h2.groupid\r\n                WHERE h2.NAME IN ('${grupo:csv}')\r\n            )\r\n    ) AS a\r\n) AS resultado_final\r\nWHERE sla_disponibilidade > 80 AND sla_disponibilidade < 89;\r\n",
+          "refId": "C",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        {
+          "dataset": "performance_schema",
+          "datasource": {
+            "type": "mysql",
+            "uid": "adzhatvz6czcwe"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "hide": false,
+          "rawQuery": true,
+          "rawSql": "SELECT COUNT(*) AS 'Disponibilidade 80% a 89%'\r\nFROM (\r\n    SELECT a.*,\r\n        (SELECT GROUP_CONCAT(DISTINCT eth.ip SEPARATOR ' | ') \r\n         FROM interface eth \r\n         WHERE eth.hostid = a.hostid \r\n         ORDER BY ip ASC) AS ip,\r\n        (SELECT (sla_avg * 100) \r\n         FROM (\r\n             SELECT AVG(value_avg) AS sla_avg\r\n             FROM trends\r\n             WHERE itemid = a.itemid\r\n               AND $__unixEpochFilter(clock)\r\n\r\n             UNION ALL\r\n\r\n             SELECT AVG(value_avg) AS sla_avg\r\n             FROM trends_uint\r\n             WHERE itemid = a.itemid\r\n               AND $__unixEpochFilter(clock)\r\n         ) AS t\r\n         WHERE sla_avg IS NOT NULL\r\n        ) AS sla_disponibilidade\r\n    FROM (\r\n        SELECT i.itemid, h.hostid, h.name, h.host \r\n        FROM hosts AS h \r\n        INNER JOIN items AS i ON h.hostid = i.hostid\r\n        WHERE i.key_ = 'icmpping'\r\n\r\n            -- somente hosts e items ativos\r\n            AND h.status = '0'\r\n            AND i.status = '0'\r\n\r\n            -- grupo \r\n            AND h.hostid IN (\r\n                SELECT DISTINCT hostid\r\n                FROM hosts_groups h\r\n                INNER JOIN hstgrp h2 ON h.groupid = h2.groupid\r\n                WHERE h2.NAME IN ('${grupo:csv}')\r\n            )\r\n    ) AS a\r\n) AS resultado_final\r\nWHERE sla_disponibilidade < 80;\r\n",
+          "refId": "D",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Disponibilidade dos Ativos Monitorados:",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "mysql",
+        "uid": "adzhatvz6czcwe"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Incidente"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 608
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Host"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 399
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Indisponibilidade"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "basic",
+                  "type": "gauge",
+                  "valueDisplayMode": "text"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-red",
+                      "value": null
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 80
+                    },
+                    {
+                      "color": "dark-orange",
+                      "value": 89
+                    },
+                    {
+                      "color": "dark-green",
+                      "value": 90
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Indisponibilidade"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "basic",
+                  "type": "gauge",
+                  "valueDisplayMode": "text"
+                }
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-green",
+                      "value": null
+                    },
+                    {
+                      "color": "dark-green",
+                      "value": 10
+                    },
+                    {
+                      "color": "dark-orange",
+                      "value": 50
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 90
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 22,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Indisponibilidade"
+          }
+        ]
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "dataset": "performance_schema",
+          "datasource": {
+            "type": "mysql",
+            "uid": "adzhatvz6czcwe"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT a.*\r\n    ,(SELECT GROUP_CONCAT(distinct eth.ip SEPARATOR ' | ') \r\n      FROM interface eth \r\n      WHERE eth.hostid = a.hostid \r\n      ORDER BY ip ASC) AS ip\r\n    ,(SELECT sla_avg * 100 \r\n      FROM (\r\n          SELECT avg(value_avg) as sla_avg\r\n          FROM trends\r\n          WHERE itemid = a.itemid\r\n            AND $__unixEpochFilter(clock)\r\n    \r\n          UNION ALL\r\n\r\n          SELECT avg(value_avg) as sla_avg\r\n          FROM trends_uint\r\n          WHERE itemid = a.itemid\r\n            AND $__unixEpochFilter(clock)\r\n      ) AS t\r\n      WHERE sla_avg IS NOT NULL\r\n    ) AS sla_media\r\n    ,(100 - (SELECT sla_avg * 100 \r\n      FROM (\r\n          SELECT avg(value_avg) as sla_avg\r\n          FROM trends\r\n          WHERE itemid = a.itemid\r\n            AND $__unixEpochFilter(clock)\r\n    \r\n          UNION ALL\r\n\r\n          SELECT avg(value_avg) as sla_avg\r\n          FROM trends_uint\r\n          WHERE itemid = a.itemid\r\n            AND $__unixEpochFilter(clock)\r\n      ) AS t\r\n      WHERE sla_avg IS NOT NULL\r\n    )) AS indisponibilidade_media\r\nFROM (\r\n    SELECT i.itemid, h.hostid, h.name, h.host \r\n    FROM hosts AS h \r\n    INNER JOIN items AS i ON h.hostid = i.hostid\r\n    WHERE i.key_ = 'icmpping'\r\n    \r\n        -- somente hosts e items ativos\r\n        AND h.status = '0'\r\n        AND i.status = '0'\r\n\r\n        -- grupo \r\n        AND h.hostid IN (\r\n            SELECT distinct hostid\r\n            FROM hosts_groups h, hstgrp h2\r\n            WHERE h.groupid = h2.groupid\r\n            AND h2.NAME IN ('${grupo:csv}')\r\n        )\r\n) AS a\r\nHAVING indisponibilidade_media IS NOT NULL\r\n   AND indisponibilidade_media BETWEEN 10 AND 90\r\nORDER BY indisponibilidade_media DESC\r\nLIMIT 10;\r\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Top 10 Indisponibilidade",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "grupo": true,
+              "host": true,
+              "hostid": true,
+              "itemid": true,
+              "sla_media": true
+            },
+            "indexByName": {
+              "grupo": 1,
+              "host": 0,
+              "incidente": 2,
+              "qtde": 3
+            },
+            "renameByName": {
+              "grupo": "Grupo",
+              "host": "Host",
+              "incidente": "Incidente",
+              "indisponibilidade_media": "Indisponibilidade",
+              "ip": "IP",
+              "name": "Host",
+              "qtde": "Quantidade",
+              "sla_media": "Disponibilidade"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "preload": false,
+  "refresh": "2h",
+  "schemaVersion": 40,
+  "tags": [
+    "Estrategico"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "Braspress",
+          "value": "Braspress"
+        },
+        "includeAll": false,
+        "label": "Grupo",
+        "name": "grupo",
+        "options": [
+          {
+            "selected": true,
+            "text": "Braspress",
+            "value": "Braspress"
+          }
+        ],
+        "query": "Braspress",
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Dashboard Relatório de Disponibilidade",
+  "uid": "dashboard-relatorio-disponibilidade",
+  "version": 4,
+  "weekStart": ""
+}
