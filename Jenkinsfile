@@ -1,51 +1,46 @@
 pipeline {
     agent any
 
-    parameters {
-        string(name: 'GRAFANA_URL', defaultValue: 'http://185.250.36.83:3000', description: 'URL da instância Grafana')
-        credentials(name: 'grafana-api-key', description: 'Token do Grafana (ID da credencial deve ser grafana-api-key)')
-    }
-
     environment {
-        API_KEY = credentials('grafana-api-key')
+        GRAFANA_URL = 'http://185.250.36.83:3000'
     }
 
     stages {
         stage('Clonar repositório') {
             steps {
-                echo "🌀 Clonando o repositório com dashboards..."
-                git branch: 'main', url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git'
+                echo '🌀 Clonando o repositório com dashboards...'
+                git url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git', branch: 'main'
             }
         }
 
         stage('Publicar dashboards no Grafana') {
+            environment {
+                DASHBOARD_FOLDER = '.' // ou ajuste se estiver em subpasta
+            }
             steps {
-                script {
-                    echo "🚀 Iniciando publicação dos dashboards..."
+                withCredentials([string(credentialsId: 'GRAFANA_API_KEY', variable: 'API_KEY')]) {
+                    script {
+                        echo "🚀 Iniciando publicação dos dashboards..."
+                        def files = findFiles(glob: "${env.DASHBOARD_FOLDER}/**/*.json")
+                        echo "🔎 Dashboards encontrados: ${files.size()}"
 
-                    def dashboards = findFiles(glob: '**/*.json')
-                    echo "🔎 Dashboards encontrados: ${dashboards.size()}"
+                        for (file in files) {
+                            echo "📤 Enviando: ${file.path}"
 
-                    for (file in dashboards) {
-                        echo "📤 Enviando: ${file.path}"
+                            def json = readFile(file.path)
+                            def authHeader = "Bearer ${API_KEY}".toString()
 
-                        def dashboardJson = readFile(file.path)
+                            def response = httpRequest(
+                                httpMode: 'POST',
+                                url: "${GRAFANA_URL}/api/dashboards/db",
+                                customHeaders: [[name: 'Authorization', value: authHeader]],
+                                contentType: 'APPLICATION_JSON',
+                                requestBody: json,
+                                validResponseCodes: '200:299'
+                            )
 
-                        def response = httpRequest(
-                            httpMode: 'POST',
-                            url: "${params.GRAFANA_URL}/api/dashboards/db",
-                            contentType: 'APPLICATION_JSON',
-                            customHeaders: [[name: 'Authorization', value: "Bearer ${API_KEY}"]],
-                            requestBody: """
-                            {
-                                "dashboard": ${dashboardJson},
-                                "overwrite": true,
-                                "folderId": 0
-                            }
-                            """
-                        )
-
-                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status}"
+                            echo "✅ Dashboard enviado com sucesso: ${file.name} (Status: ${response.status})"
+                        }
                     }
                 }
             }
