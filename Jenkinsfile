@@ -19,7 +19,7 @@ pipeline {
 
         stage('Publicar dashboards no Grafana') {
             environment {
-                GRAFANA_URL = 'http://grafana:3000/api/dashboards/db' // Corrigido endpoint de importação
+                GRAFANA_URL = 'http://grafana:3000/api/dashboards/db'
             }
             steps {
                 withCredentials([string(credentialsId: 'grafana-api-key', variable: 'API_KEY')]) {
@@ -32,8 +32,12 @@ pipeline {
                         files.each { file ->
                             echo "📤 Enviando: ${file.path}"
                             def jsonContent = readFile(file.path).trim()
+                            def dashboardData = readJSON text: jsonContent
 
-                            def payload = jsonContent
+                            def payload = groovy.json.JsonOutput.toJson([
+                                dashboard: dashboardData,
+                                overwrite: true
+                            ])
 
                             def response = httpRequest(
                                 httpMode: 'POST',
