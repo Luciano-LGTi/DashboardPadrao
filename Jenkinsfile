@@ -24,8 +24,6 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'grafana-api-key', variable: 'API_KEY')]) {
                     script {
-                        import groovy.json.JsonOutput
-
                         echo '🚀 Iniciando publicação dos dashboards...'
                         def files = findFiles(glob: '**/*.json')
 
@@ -39,7 +37,7 @@ pipeline {
                             // Remove propriedades recursivas que causam loop
                             dashboardData.remove('meta')
 
-                            def payload = JsonOutput.toJson([
+                            def payload = groovy.json.JsonOutput.toJson([
                                 dashboard: dashboardData,
                                 overwrite: true
                             ])
