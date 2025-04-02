@@ -37,6 +37,12 @@ pipeline {
                             // Remove propriedades que causam erro de serialização
                             dashboardData.remove('meta')
 
+                            // Define folder se o path indicar subdiretório (ex: NOC/Estrategico/...)
+                            def folderName = file.path.contains('/') ? file.path.split('/')[0] : null
+                            if (folderName) {
+                                dashboardData.folder = folderName
+                            }
+
                             // Monta o payload como objeto serializado corretamente
                             def payload = groovy.json.JsonOutput.toJson([
                                 dashboard: dashboardData,
