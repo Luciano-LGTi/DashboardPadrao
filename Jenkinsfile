@@ -3,81 +3,54 @@ pipeline {
 
     environment {
         GRAFANA_URL = 'http://grafana:3000'
+        FOLDER_PATH = '.' // Raiz do repositório
     }
 
     stages {
-        stage('Declarative: Checkout SCM') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Clonar repositório') {
             steps {
-                echo "🌀 Clonando o repositório com dashboards..."
-                git url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git'
+                echo '🌀 Clonando o repositório com dashboards...'
+                git url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git', branch: 'main'
             }
         }
 
         stage('Publicar dashboards no Grafana') {
             environment {
-                DASHBOARD_PATH = './'
+                CONTENT_TYPE = 'application/json'
             }
             steps {
                 withCredentials([string(credentialsId: 'grafana-api-key', variable: 'API_KEY')]) {
                     script {
-                        echo "🚀 Iniciando publicação dos dashboards..."
+                        echo '🚀 Iniciando publicação dos dashboards...'
 
-                        def files = findFiles(glob: '**/*.json')
+                        def arquivos = findFiles(glob: '**/*.json')
+                        echo "📊 Dashboards encontrados: ${arquivos.size()}"
 
-                        files.each { file ->
-                            def path = file.path.replace('\\', '/')
-                            def content = readFile(path)
-                            def json = new groovy.json.JsonSlurperClassic().parseText(content)
+                        arquivos.each { file ->
+                            echo "📤 Enviando: ${file.path}"
 
-                            def folderParts = path.tokenize('/')
-                            folderParts.pop() // Remove o nome do arquivo
-                            def folderName = folderParts.join(' / ').trim()
-                            def dashboardTitle = json.dashboard.title ?: file.name
+                            def rawJson = readFile(file.path)
+                            def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
-                            echo "📤 Dashboard: ${dashboardTitle}"
-                            echo "📁 Pasta: ${folderName}"
-
-                            // Cria pasta se necessário
-                            def folderUid = folderName.toLowerCase().replaceAll('[^a-z0-9]', '-')
-                            def createFolderResponse = httpRequest(
-                                httpMode: 'POST',
-                                url: "${GRAFANA_URL}/api/folders",
-                                customHeaders: [[name: 'Authorization', value: "Bearer ${API_KEY}"]],
-                                contentType: 'APPLICATION_JSON',
-                                requestBody: """{
-                                    "uid": "${folderUid}",
-                                    "title": "${folderName}"
-                                }""",
-                                validResponseCodes: '200:409' // 409 = já existe
-                            )
-                            echo "📂 Pasta '${folderName}' verificada/criada"
-
-                            // Remove ID para evitar conflitos
-                            if (json.dashboard.containsKey('id')) {
+                            // Remove o campo "id", se existir
+                            if (json.dashboard?.id != null) {
                                 json.dashboard.remove('id')
                             }
 
-                            def requestBody = [
-                                dashboard : json.dashboard,
-                                folderUid : folderUid,
-                                overwrite : true
+                            def payload = [
+                                dashboard: json.dashboard,
+                                overwrite: true,
+                                folderUid: null, // Pode personalizar se quiser enviar pra pastas específicas
+                                message: "Importado via Jenkins pipeline"
                             ]
-
-                            def dashboardJson = groovy.json.JsonOutput.toJson(requestBody)
 
                             def response = httpRequest(
                                 httpMode: 'POST',
-                                url: "${GRAFANA_URL}/api/dashboards/db",
-                                contentType: 'APPLICATION_JSON',
+                                url: "${GRAFANA_URL}/api/dashboards/import",
                                 customHeaders: [[name: 'Authorization', value: "Bearer ${API_KEY}"]],
-                                requestBody: dashboardJson,
-                                validResponseCodes: '200:399'
+                                contentType: CONTENT_TYPE,
+                                requestBody: groovy.json.JsonOutput.toJson(payload),
+                                validResponseCodes: '100:399'
                             )
 
                             echo "✅ Dashboard '${file.name}' publicado com status: ${response.status}"
