@@ -24,6 +24,8 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'grafana-api-key', variable: 'API_KEY')]) {
                     script {
+                        import groovy.json.JsonOutput
+
                         echo '🚀 Iniciando publicação dos dashboards...'
                         def files = findFiles(glob: '**/*.json')
 
