@@ -3,12 +3,8 @@ pipeline {
 
     parameters {
         string(name: 'GRAFANA_URL', defaultValue: 'http://grafana:3000', description: 'URL da instância Grafana')
-        credentials(name: 'grafana-api-key', description: 'Token do Grafana (ID da credencial deve ser grafana-api-key)')
+        string(name: 'API_KEY', defaultValue: '', description: 'API Key da organização Grafana')
         string(name: 'ORG_ID', defaultValue: '1', description: 'ID da organização no Grafana')
-    }
-
-    environment {
-        API_KEY = credentials('grafana-api-key')
     }
 
     stages {
@@ -46,7 +42,7 @@ pipeline {
                             url: "${params.GRAFANA_URL}/api/dashboards/import",
                             contentType: 'APPLICATION_JSON',
                             customHeaders: [
-                                [name: 'Authorization', value: "Bearer ${API_KEY}"],
+                                [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
                                 [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
                             ],
                             requestBody: requestBody
