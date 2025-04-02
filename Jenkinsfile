@@ -34,7 +34,10 @@ pipeline {
                             def jsonContent = readFile(file.path).trim()
                             def dashboardData = readJSON text: jsonContent
 
-                            def payload = groovy.json.JsonOutput.toJson([
+                            // Remove propriedades recursivas que causam loop
+                            dashboardData.remove('meta')
+
+                            def payload = JsonOutput.toJson([
                                 dashboard: dashboardData,
                                 overwrite: true
                             ])
