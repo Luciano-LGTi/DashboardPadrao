@@ -37,11 +37,11 @@ pipeline {
                             // Remove propriedades que causam erro de serialização
                             dashboardData.remove('meta')
 
-                            // Monta o payload como texto puro para evitar stackoverflow
-                            def payload = """{
-  \"dashboard\": ${jsonContent},
-  \"overwrite\": true
-}"""
+                            // Monta o payload como objeto serializado corretamente
+                            def payload = groovy.json.JsonOutput.toJson([
+                                dashboard: dashboardData,
+                                overwrite: true
+                            ])
 
                             def response = httpRequest(
                                 httpMode: 'POST',
