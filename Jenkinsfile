@@ -28,20 +28,25 @@ pipeline {
                     for (file in dashboards) {
                         echo "📤 Enviando: ${file.path}"
 
+                        // Lê e ajusta JSON
                         def dashboardJsonRaw = readFile(file.path)
-                        def parsedJson = new groovy.json.JsonSlurper().parseText(dashboardJsonRaw)
-                        def dashboardEscaped = groovy.json.JsonOutput.toJson(parsedJson)
+                        def parsed = new groovy.json.JsonSlurper().parseText(dashboardJsonRaw)
 
+                        // Remover ID se presente
+                        parsed.remove('id')
+
+                        // Monta payload como String
+                        def dashboardJson = groovy.json.JsonOutput.toJson(parsed)
                         def requestPayload = """{
-                          "dashboard": ${dashboardEscaped},
+                          "dashboard": ${dashboardJson},
                           "overwrite": true,
                           "folderId": 0
                         }"""
 
-                        // Loga os primeiros caracteres do payload para debug
                         echo "📄 JSON gerado:"
                         echo requestPayload.take(1000)
 
+                        // Envia requisição
                         def response = httpRequest(
                             httpMode: 'POST',
                             url: "${params.GRAFANA_URL}/api/dashboards/import",
