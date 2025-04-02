@@ -19,7 +19,7 @@ pipeline {
 
         stage('Publicar dashboards no Grafana') {
             environment {
-                GRAFANA_URL = 'http://grafana:3000/api/dashboards/import'
+                GRAFANA_URL = 'http://grafana:3000/api/dashboards/db' // Corrigido endpoint de importação
             }
             steps {
                 withCredentials([string(credentialsId: 'grafana-api-key', variable: 'API_KEY')]) {
@@ -33,13 +33,7 @@ pipeline {
                             echo "📤 Enviando: ${file.path}"
                             def jsonContent = readFile(file.path).trim()
 
-                            def payload = """
-                            {
-                                "dashboard": ${jsonContent},
-                                "overwrite": true,
-                                "message": "Importado via Jenkins pipeline"
-                            }
-                            """
+                            def payload = jsonContent
 
                             def response = httpRequest(
                                 httpMode: 'POST',
