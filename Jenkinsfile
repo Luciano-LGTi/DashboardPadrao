@@ -37,8 +37,11 @@ pipeline {
                             // Remove propriedades recursivas que causam loop
                             dashboardData.remove('meta')
 
+                            // Sanitização simples contra referência circular
+                            def safeDashboardData = dashboardData.findAll { k, v -> !(v instanceof Map && v == dashboardData) }
+
                             def payload = groovy.json.JsonOutput.toJson([
-                                dashboard: dashboardData,
+                                dashboard: safeDashboardData,
                                 overwrite: true
                             ])
 
