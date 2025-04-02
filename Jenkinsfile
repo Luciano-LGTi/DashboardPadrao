@@ -1,68 +1,67 @@
 pipeline {
     agent any
 
-    environment {
-        DASHBOARDS_DIR = '.'
+    parameters {
+        string(name: 'GRAFANA_URL', defaultValue: 'http://grafana:3000', description: 'URL da instância Grafana')
+        credentials(name: 'grafana-api-key', description: 'Token do Grafana (ID da credencial deve ser grafana-api-key)')
     }
 
-    parameters {
-        password(name: 'GRAFANA_API_KEY', defaultValue: '', description: 'Chave da API do Grafana')
+    environment {
+        API_KEY = credentials('grafana-api-key')
     }
 
     stages {
         stage('Clonar repositório') {
             steps {
                 echo '🌀 Clonando o repositório com dashboards...'
-                git url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git', branch: 'main'
+                git branch: 'main', url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git'
             }
         }
 
         stage('Publicar dashboards no Grafana') {
-            environment {
-                GRAFANA_URL = 'http://grafana:3000/api/dashboards/db'
-            }
             steps {
-                withCredentials([string(credentialsId: 'grafana-api-key', variable: 'API_KEY')]) {
-                    script {
-                        echo '🚀 Iniciando publicação dos dashboards...'
-                        def files = findFiles(glob: '**/*.json')
+                script {
+                    echo '🚀 Iniciando publicação dos dashboards...'
+                    def dashboards = findFiles(glob: '**/*.json')
+                    echo "📊 Dashboards encontrados: ${dashboards.size()}"
 
-                        echo "📊 Dashboards encontrados: ${files.length}"
+                    for (file in dashboards) {
+                        echo "📤 Enviando: ${file.path}"
 
-                        files.each { file ->
-                            echo "📤 Enviando: ${file.path}"
-                            def jsonContent = readFile(file.path).trim()
-                            def dashboardData = readJSON text: jsonContent
+                        // Leitura e preparação do JSON
+                        def rawJson = readFile(file.path)
+                        def jsonStr = removeIdField(rawJson)
 
-                            // Remove propriedades que causam erro de serialização
-                            dashboardData.remove('meta')
+                        def requestBody = """{
+                            "dashboard": ${jsonStr},
+                            "overwrite": true,
+                            "folderId": 0
+                        }"""
 
-                            // Define folder se o path indicar subdiretório (ex: NOC/Estrategico/...)
-                            def folderName = file.path.contains('/') ? file.path.split('/')[0] : null
-                            if (folderName) {
-                                dashboardData.folder = folderName
-                            }
+                        echo "📄 JSON parcial:"
+                        echo requestBody.take(1000)
 
-                            // Monta o payload como objeto serializado corretamente
-                            def payload = groovy.json.JsonOutput.toJson([
-                                dashboard: dashboardData,
-                                overwrite: true
-                            ])
+                        def response = httpRequest(
+                            httpMode: 'POST',
+                            url: "${params.GRAFANA_URL}/api/dashboards/import",
+                            contentType: 'APPLICATION_JSON',
+                            customHeaders: [[name: 'Authorization', value: "Bearer ${API_KEY}"]],
+                            requestBody: requestBody
+                        )
 
-                            def response = httpRequest(
-                                httpMode: 'POST',
-                                url: GRAFANA_URL,
-                                contentType: 'APPLICATION_JSON',
-                                customHeaders: [[name: 'Authorization', value: "Bearer ${API_KEY}"]],
-                                requestBody: payload,
-                                validResponseCodes: '100:399'
-                            )
-
-                            echo "✅ Dashboard '${file.name}' publicado com status: ${response.status}"
-                        }
+                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status}"
                     }
                 }
             }
         }
     }
+}
+
+// Função fora do pipeline para evitar LazyMap no histórico
+@NonCPS
+def removeIdField(rawJson) {
+    def parser = new groovy.json.JsonSlurperClassic()
+    def obj = parser.parseText(rawJson)
+    obj.remove('id')
+    return groovy.json.JsonOutput.toJson(obj)
 }
