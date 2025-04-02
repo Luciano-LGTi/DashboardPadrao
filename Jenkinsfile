@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'GRAFANA_URL', defaultValue: 'http://185.250.36.83:3000', description: 'URL da instância Grafana')
-        credentials(name: 'grafana-api-key', description: 'Token do Grafana (ID da credencial deve ser grafana-api-key)')
+        string(name: 'GRAFANA_URL', defaultValue: 'http://grafana:3000', description: 'URL da instância Grafana')
+        credentials(name: 'grafana-api-key', description: 'Token do Grafana')
     }
 
     environment {
@@ -27,20 +27,22 @@ pipeline {
 
                     for (file in dashboards) {
                         echo "📤 Enviando: ${file.path}"
-                        def dashboardJson = readFile(file.path)
+                        def dashboardJsonRaw = readFile(file.path)
+
+                        def parsedJson = new groovy.json.JsonSlurper().parseText(dashboardJsonRaw)
+
+                        def requestPayload = new groovy.json.JsonBuilder([
+                            dashboard: parsedJson,
+                            overwrite: true,
+                            folderId: 0
+                        ]).toPrettyString()
 
                         def response = httpRequest(
                             httpMode: 'POST',
                             url: "${params.GRAFANA_URL}/api/dashboards/import",
                             contentType: 'APPLICATION_JSON',
                             customHeaders: [[name: 'Authorization', value: "Bearer ${API_KEY}"]],
-                            requestBody: """
-                            {
-                                "dashboard": ${dashboardJson},
-                                "overwrite": true,
-                                "folderId": 0
-                            }
-                            """
+                            requestBody: requestPayload
                         )
 
                         echo "✅ Dashboard '${file.name}' publicado com status: ${response.status}"
