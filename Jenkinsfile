@@ -1,4 +1,4 @@
-pipeline {
+""pipeline {
     agent any
 
     environment {
@@ -15,42 +15,47 @@ pipeline {
 
         stage('Publicar dashboards no Grafana') {
             environment {
-                GRAFANA_URL = 'http://grafana:3000'
+                API_KEY = credentials('grafana-api-key')
             }
             steps {
-                withCredentials([string(credentialsId: 'grafana-api-key', variable: 'API_KEY')]) {
-                    script {
-                        echo '🚀 Iniciando publicação dos dashboards...'
+                script {
+                    echo "🚀 Iniciando publicação dos dashboards..."
 
-                        def arquivos = findFiles(glob: '**/*.json')
-                        echo "📊 Dashboards encontrados: ${arquivos.size()}"
+                    def files = findFiles(glob: '**/*.json')
+                    echo "📊 Dashboards encontrados: ${files.size()}"
 
-                        arquivos.each { arquivo ->
-                            echo "📤 Enviando: ${arquivo.path}"
+                    files.each { file ->
+                        echo "📤 Enviando: ${file.path}"
 
-                            def conteudo = readFile(file: arquivo.path)
+                        def content = readFile(file.path)
 
-                            def payload = [
-                                dashboard: new groovy.json.JsonSlurperClassic().parseText(conteudo),
-                                overwrite: true,
-                                folderUid: null,
-                                message: "Importado via Jenkins pipeline"
-                            ]
+                        // Detectar pasta
+                        def pathParts = file.path.tokenize('/')
+                        def folderName = pathParts.size() > 1 ? pathParts[0..-2].join(' / ') : 'General'
 
-                            def response = httpRequest(
-                                httpMode: 'POST',
-                                url: "${GRAFANA_URL}/api/dashboards/import",
-                                customHeaders: [[name: 'Authorization', value: "Bearer ${API_KEY}"]],
-                                contentType: 'APPLICATION_JSON',
-                                requestBody: groovy.json.JsonOutput.toJson(payload),
-                                validResponseCodes: '100:399'
-                            )
+                        echo "📁 Pasta detectada: ${folderName}"
 
-                            echo "✅ Dashboard '${arquivo.name}' publicado com status: ${response.status}"
-                        }
+                        def dashboardJson = readJSON text: content
+                        def payload = groovy.json.JsonOutput.toJson([
+                            dashboard: dashboardJson,
+                            overwrite: true,
+                            folderUid: null, // ou defina um UID se quiser organizar em pastas fixas
+                            message: "Importado via Jenkins pipeline"
+                        ])
+
+                        def response = httpRequest(
+                            httpMode: 'POST',
+                            url: "${GRAFANA_URL}/api/dashboards/import",
+                            customHeaders: [[name: 'Authorization', value: "Bearer ${API_KEY}"]],
+                            contentType: 'APPLICATION_JSON',
+                            requestBody: payload,
+                            validResponseCodes: '100:399'
+                        )
+
+                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.statusCode}"
                     }
                 }
             }
         }
     }
-}
+}""
