@@ -27,6 +27,8 @@ pipeline {
 
                     for (file in dashboards) {
                         echo "📤 Enviando: ${file.path}"
+                        echo "📄 JSON gerado:"
+                        echo requestPayload.take(1000) // Mostra os primeiros 1000 caracteres do JSON
                         def dashboardJsonRaw = readFile(file.path)
                         def parsedJson = new groovy.json.JsonSlurper().parseText(dashboardJsonRaw)
                         def dashboardEscaped = groovy.json.JsonOutput.toJson(parsedJson)
