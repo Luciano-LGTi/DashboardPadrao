@@ -28,31 +28,25 @@ pipeline {
                     for (file in dashboards) {
                         echo "📤 Enviando: ${file.path}"
 
-                        // Lê e ajusta JSON
-                        def dashboardJsonRaw = readFile(file.path)
-                        def parsed = new groovy.json.JsonSlurper().parseText(dashboardJsonRaw)
+                        // Leitura e preparação do JSON
+                        def rawJson = readFile(file.path)
+                        def jsonStr = removeIdField(rawJson)
 
-                        // Remover ID se presente
-                        parsed.remove('id')
-
-                        // Monta payload como String
-                        def dashboardJson = groovy.json.JsonOutput.toJson(parsed)
-                        def requestPayload = """{
-                          "dashboard": ${dashboardJson},
-                          "overwrite": true,
-                          "folderId": 0
+                        def requestBody = """{
+                            "dashboard": ${jsonStr},
+                            "overwrite": true,
+                            "folderId": 0
                         }"""
 
-                        echo "📄 JSON gerado:"
-                        echo requestPayload.take(1000)
+                        echo "📄 JSON parcial:"
+                        echo requestBody.take(1000)
 
-                        // Envia requisição
                         def response = httpRequest(
                             httpMode: 'POST',
                             url: "${params.GRAFANA_URL}/api/dashboards/import",
                             contentType: 'APPLICATION_JSON',
                             customHeaders: [[name: 'Authorization', value: "Bearer ${API_KEY}"]],
-                            requestBody: requestPayload
+                            requestBody: requestBody
                         )
 
                         echo "✅ Dashboard '${file.name}' publicado com status: ${response.status}"
@@ -61,4 +55,13 @@ pipeline {
             }
         }
     }
+}
+
+// Função fora do pipeline para evitar LazyMap no histórico
+@NonCPS
+def removeIdField(rawJson) {
+    def parser = new groovy.json.JsonSlurperClassic()
+    def obj = parser.parseText(rawJson)
+    obj.remove('id')
+    return groovy.json.JsonOutput.toJson(obj)
 }
