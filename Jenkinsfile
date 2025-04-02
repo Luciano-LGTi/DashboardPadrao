@@ -22,7 +22,6 @@ pipeline {
             steps {
                 script {
                     echo '🚀 Iniciando publicação dos dashboards...'
-
                     def dashboards = findFiles(glob: '**/*.json')
                     echo "📊 Dashboards encontrados: ${dashboards.size()}"
 
@@ -32,7 +31,7 @@ pipeline {
 
                         def response = httpRequest(
                             httpMode: 'POST',
-                            url: "${params.GRAFANA_URL}/api/dashboards/db",
+                            url: "${params.GRAFANA_URL}/api/dashboards/import",
                             contentType: 'APPLICATION_JSON',
                             customHeaders: [[name: 'Authorization', value: "Bearer ${API_KEY}"]],
                             requestBody: """
