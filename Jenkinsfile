@@ -28,14 +28,14 @@ pipeline {
                     for (file in dashboards) {
                         echo "📤 Enviando: ${file.path}"
                         def dashboardJsonRaw = readFile(file.path)
-
                         def parsedJson = new groovy.json.JsonSlurper().parseText(dashboardJsonRaw)
+                        def dashboardEscaped = groovy.json.JsonOutput.toJson(parsedJson)
 
-                        def requestPayload = new groovy.json.JsonBuilder([
-                            dashboard: parsedJson,
-                            overwrite: true,
-                            folderId: 0
-                        ]).toPrettyString()
+                        def requestPayload = """{
+                          "dashboard": ${dashboardEscaped},
+                          "overwrite": true,
+                          "folderId": 0
+                        }"""
 
                         def response = httpRequest(
                             httpMode: 'POST',
