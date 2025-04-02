@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         GRAFANA_URL = 'http://grafana:3000'
-        FOLDER_PATH = '.' // Raiz do repositório
     }
 
     stages {
@@ -16,7 +15,7 @@ pipeline {
 
         stage('Publicar dashboards no Grafana') {
             environment {
-                CONTENT_TYPE = 'application/json'
+                GRAFANA_URL = 'http://grafana:3000'
             }
             steps {
                 withCredentials([string(credentialsId: 'grafana-api-key', variable: 'API_KEY')]) {
@@ -26,21 +25,15 @@ pipeline {
                         def arquivos = findFiles(glob: '**/*.json')
                         echo "📊 Dashboards encontrados: ${arquivos.size()}"
 
-                        arquivos.each { file ->
-                            echo "📤 Enviando: ${file.path}"
+                        arquivos.each { arquivo ->
+                            echo "📤 Enviando: ${arquivo.path}"
 
-                            def rawJson = readFile(file.path)
-                            def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
-
-                            // Remove o campo "id", se existir
-                            if (json.dashboard?.id != null) {
-                                json.dashboard.remove('id')
-                            }
+                            def conteudo = readFile(file: arquivo.path)
 
                             def payload = [
-                                dashboard: json.dashboard,
+                                dashboard: new groovy.json.JsonSlurperClassic().parseText(conteudo),
                                 overwrite: true,
-                                folderUid: null, // Pode personalizar se quiser enviar pra pastas específicas
+                                folderUid: null,
                                 message: "Importado via Jenkins pipeline"
                             ]
 
@@ -48,12 +41,12 @@ pipeline {
                                 httpMode: 'POST',
                                 url: "${GRAFANA_URL}/api/dashboards/import",
                                 customHeaders: [[name: 'Authorization', value: "Bearer ${API_KEY}"]],
-                                contentType: CONTENT_TYPE,
+                                contentType: 'APPLICATION_JSON',
                                 requestBody: groovy.json.JsonOutput.toJson(payload),
                                 validResponseCodes: '100:399'
                             )
 
-                            echo "✅ Dashboard '${file.name}' publicado com status: ${response.status}"
+                            echo "✅ Dashboard '${arquivo.name}' publicado com status: ${response.status}"
                         }
                     }
                 }
