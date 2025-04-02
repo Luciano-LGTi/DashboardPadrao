@@ -34,16 +34,14 @@ pipeline {
                             def jsonContent = readFile(file.path).trim()
                             def dashboardData = readJSON text: jsonContent
 
-                            // Remove propriedades recursivas que causam loop
+                            // Remove propriedades que causam erro de serialização
                             dashboardData.remove('meta')
 
-                            // Sanitização simples contra referência circular
-                            def safeDashboardData = dashboardData.findAll { k, v -> !(v instanceof Map && v == dashboardData) }
-
-                            def payload = groovy.json.JsonOutput.toJson([
-                                dashboard: safeDashboardData,
-                                overwrite: true
-                            ])
+                            // Monta o payload como texto puro para evitar stackoverflow
+                            def payload = """{
+  \"dashboard\": ${jsonContent},
+  \"overwrite\": true
+}"""
 
                             def response = httpRequest(
                                 httpMode: 'POST',
