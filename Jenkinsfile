@@ -117,8 +117,8 @@ def updateDatasourceIds(rawJson, datasources) {
     def dashboard = parser.parseText(rawJson)
 
     dashboard.panels.each { panel ->
-        if (panel.datasource && panel.datasource.uid) {
-            def matchingDs = datasources.find { it.uid == panel.datasource.uid }
+        if (panel.datasource && panel.datasource.type) {
+            def matchingDs = datasources.find { it.type == panel.datasource.type }
             if (matchingDs) {
                 panel.datasource.uid = matchingDs.uid
             }
