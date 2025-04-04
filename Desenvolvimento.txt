@@ -5,3 +5,5 @@ Token ID 1: glsa_wlvGB8WpWTCcY6nrsKBTi45MmeTGWpFB_c4e56a5e
 Token ID 2: glsa_r3em4baW4adYJO4PlpGQjTozWn0RS9jZ_1830e082
 Token ID 3: glsa_CGP0VOrzttOBFmaod1DAZKa05nHRA1IP_f361ccc8
 
+##Fora do escopo
+ID 113 : glsa_WX6Bj9rQewB65mrHgJxpOJ0ZfvvYpZya_15b08e38
