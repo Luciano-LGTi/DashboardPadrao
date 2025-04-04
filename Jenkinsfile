@@ -116,14 +116,22 @@ def updateDatasourceIds(rawJson, datasources) {
     def parser = new groovy.json.JsonSlurperClassic()
     def dashboard = parser.parseText(rawJson)
 
-    dashboard.panels.each { panel ->
-        if (panel.datasource && panel.datasource.type) {
-            def matchingDs = datasources.find { it.type == panel.datasource.type }
-            if (matchingDs) {
-                panel.datasource.uid = matchingDs.uid
-            }
-        }
-    }
+    updateDatasourceRecursive(dashboard, datasources)
 
     return groovy.json.JsonOutput.toJson(dashboard)
+}
+
+@NonCPS
+def updateDatasourceRecursive(node, datasources) {
+    if (node instanceof Map) {
+        if (node.datasource?.type) {
+            def matchingDs = datasources.find { it.type == node.datasource.type }
+            if (matchingDs) {
+                node.datasource.uid = matchingDs.uid
+            }
+        }
+        node.each { k, v -> updateDatasourceRecursive(v, datasources) }
+    } else if (node instanceof List) {
+        node.each { updateDatasourceRecursive(it, datasources) }
+    }
 }
