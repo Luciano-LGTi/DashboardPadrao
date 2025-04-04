@@ -118,9 +118,10 @@ def updateDatasourceIds(rawJson, datasources) {
 
     dashboard.panels.each { panel ->
         if (panel.datasource) {
-            def matchingDs = datasources.find { it.name == panel.datasource.name }
+            def datasourceName = panel.datasource instanceof Map ? panel.datasource.name : panel.datasource
+            def matchingDs = datasources.find { it.name == datasourceName }
             if (matchingDs) {
-                panel.datasource.uid = matchingDs.uid
+                panel.datasource = [ type: matchingDs.type, uid: matchingDs.uid ]
             }
         }
     }
