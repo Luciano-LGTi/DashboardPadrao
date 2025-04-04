@@ -124,8 +124,9 @@ def updateDatasourceIds(rawJson, datasources) {
 @NonCPS
 def updateDatasourceRecursive(node, datasources) {
     if (node instanceof Map) {
-        if (node.datasource?.type) {
-            def matchingDs = datasources.find { it.type == node.datasource.type }
+        if (node.containsKey('datasource') && node.datasource instanceof Map && node.datasource.type) {
+            def dsType = node.datasource.type
+            def matchingDs = datasources.find { it.type == dsType }
             if (matchingDs) {
                 node.datasource.uid = matchingDs.uid
             }
