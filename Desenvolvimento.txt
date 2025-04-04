@@ -1,0 +1,143 @@
+git remote add origin https://github.com/Luciano-LGTi/DashboardPadrao.git
+
+
+Token ID 1: glsa_wlvGB8WpWTCcY6nrsKBTi45MmeTGWpFB_c4e56a5e
+Token ID 2: glsa_r3em4baW4adYJO4PlpGQjTozWn0RS9jZ_1830e082
+Token ID 3: glsa_CGP0VOrzttOBFmaod1DAZKa05nHRA1IP_f361ccc8
+
+
+Git Token: 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
+
+
+
+curl -X POST -H "Content-Type: application/json" -H "Authorization: Bearer glsa_CGP0VOrzttOBFmaod1DAZKa05nHRA1IP_f361ccc8" -d @dashboard.json http://185.250.36.83:3000/api/dashboards/db
+
+
+
+
+
+
+
+
+
+Started by user Admin Jenkins
+Obtained Jenkinsfile from git https://github.com/Luciano-LGTi/DashboardPadrao.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/Deploy-Grafana-Dashboards
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+using credential github-token
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/Deploy-Grafana-Dashboards/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Luciano-LGTi/DashboardPadrao.git # timeout=10
+Fetching upstream changes from https://github.com/Luciano-LGTi/DashboardPadrao.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+using GIT_ASKPASS to set credentials 
+ > git fetch --tags --force --progress -- https://github.com/Luciano-LGTi/DashboardPadrao.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision a139e7b3199263b4237d155b70bb4d43308b6fb8 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a139e7b3199263b4237d155b70bb4d43308b6fb8 # timeout=10
+Commit message: "Informando ID da Organizacao - Inicio"
+ > git rev-list --no-walk a139e7b3199263b4237d155b70bb4d43308b6fb8 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withCredentials
+Masking supported pattern matches of $API_KEY
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Clonar repositório)
+[Pipeline] echo
+🌀 Clonando o repositório com dashboards...
+[Pipeline] git
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/Deploy-Grafana-Dashboards/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Luciano-LGTi/DashboardPadrao.git # timeout=10
+Fetching upstream changes from https://github.com/Luciano-LGTi/DashboardPadrao.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/Luciano-LGTi/DashboardPadrao.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision a139e7b3199263b4237d155b70bb4d43308b6fb8 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f a139e7b3199263b4237d155b70bb4d43308b6fb8 # timeout=10
+ > git branch -a -v --no-abbrev # timeout=10
+ > git branch -D main # timeout=10
+ > git checkout -b main a139e7b3199263b4237d155b70bb4d43308b6fb8 # timeout=10
+Commit message: "Informando ID da Organizacao - Inicio"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Publicar dashboards no Grafana)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] echo
+🚀 Iniciando publicação dos dashboards...
+[Pipeline] findFiles
+[Pipeline] echo
+📊 Dashboards encontrados: 10
+[Pipeline] echo
+📤 Enviando: NOC/Estrategico/Dashboard Ativos-1743507077978.json
+[Pipeline] readFile
+[Pipeline] echo
+📄 JSON parcial:
+[Pipeline] echo
+{
+                            "dashboard": {"graphTooltip":0,"schemaVersion":40,"editable":true,"panels":[{"pluginVersion":"11.3.0","options":{"mode":"html","code":{"showLineNumbers":false,"language":"plaintext","showMiniMap":false},"content":"<style>\n\n body {\n    margin: 0;\n    font-family: Arial, sans-serif;\n}\n\n.custom-header {\n    background-color: #333;\n    color: #fff;\n    padding: 20px;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n}\n\n.custom-logo img {\n    max-width: 65px;\n}\n.logo-text {\n    font-size: 20px; /* Tamanho do texto */\n    margin-left: 30px; /* Espa\u00e7amento entre o texto e o logo */\n}\n\nnav ul {\n    list-style-type: none;\n    margin: 0;\n    padding: 0;\n    display: flex;\n}\n\n.custom-nav-links {\n    display: flex;\n    justify-content: center;\n    align-items: center ;\n}\n\n.custom-nav-links li {\n    margin-right:20px;\n    text-align: center;\n}\n\n.custom-nav-links a {\n    color: #fff;\n    text
+[Pipeline] httpRequest
+Warning: A secret was passed to "httpRequest" using Groovy String interpolation, which is insecure.
+		 Affected argument(s) used the following variable(s): [API_KEY]
+		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
+HttpMethod: POST
+URL: http://grafana:3000/api/dashboards/import
+Content-Type: application/json
+Authorization: *****
+X-Grafana-Org-Id: 1
+Sending request to url: http://grafana:3000/api/dashboards/import
+Response Code: HTTP/1.1 401 Unauthorized
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+hudson.AbortException: Fail: Status code 401 is not in the accepted range: 100:399 while calling http://grafana:3000/api/dashboards/import
+	at PluginClassLoader for http_request//jenkins.plugins.http_request.HttpRequestExecution.responseCodeIsValid(HttpRequestExecution.java:470)
+	at PluginClassLoader for http_request//jenkins.plugins.http_request.HttpRequestExecution.processResponse(HttpRequestExecution.java:480)
+	at PluginClassLoader for http_request//jenkins.plugins.http_request.HttpRequestExecution.authAndRequest(HttpRequestExecution.java:376)
+	at PluginClassLoader for http_request//jenkins.plugins.http_request.HttpRequestExecution.call(HttpRequestExecution.java:284)
+Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: bf1f1a9a-c506-42d9-9273-dd73534d1672
+Caused: java.lang.IllegalStateException
+	at PluginClassLoader for http_request//jenkins.plugins.http_request.HttpRequestExecution.call(HttpRequestExecution.java:287)
+	at PluginClassLoader for http_request//jenkins.plugins.http_request.HttpRequestExecution.call(HttpRequestExecution.java:80)
+	at hudson.remoting.LocalChannel.call(LocalChannel.java:46)
+	at PluginClassLoader for http_request//jenkins.plugins.http_request.HttpRequestStep$Execution.run(HttpRequestStep.java:404)
+	at PluginClassLoader for http_request//jenkins.plugins.http_request.HttpRequestStep$Execution.run(HttpRequestStep.java:383)
+	at PluginClassLoader for workflow-step-api//org.jenkinsci.plugins.workflow.steps.SynchronousNonBlockingStepExecution.lambda$start$0(SynchronousNonBlockingStepExecution.java:49)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
+	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Finished: FAILURE
+
+
+
+zabbix_grafana.1.pakoanqyaygf@vmi2186463.contaboserver.net    | logger=authn.service t=2025-04-02T14:15:20.59901551Z level=info msg="Failed to authenticate request" client=auth.client.api-key error="[api-key.organization-mismatch] API does not belong in Organization"
+zabbix_grafana.1.pakoanqyaygf@vmi2186463.contaboserver.net    | logger=context userId=0 orgId=0 uname= t=2025-04-02T14:15:20.599723581Z level=info msg="Request Completed" method=POST path=/api/dashboards/import status=401 remote_addr=10.0.1.4 time_ms=9 duration=9.200659ms size=155 referer= handler=/api/dashboards/import status_source=server errorReason=Unauthorized errorMessageID=api-key.organization-mismatch error="API does not belong in Organization"
