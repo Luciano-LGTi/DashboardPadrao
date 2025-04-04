@@ -22,10 +22,12 @@ pipeline {
                     def dashboards = findFiles(glob: '**/*.json')
                     echo "📊 Dashboards encontrados: ${dashboards.size()}"
 
+                    def datasources = getDatasources()
+
                     dashboards.each { file ->
                         def folderPath = file.path.tokenize('/')[0..-2]
                         def rawJson = readFile(file.path)
-                        def jsonStr = removeIdField(rawJson)
+                        def jsonStr = updateDatasourceIds(removeIdField(rawJson), datasources)
 
                         def folderId = getOrCreateFolder(folderPath)
 
@@ -63,36 +65,69 @@ def removeIdField(rawJson) {
 }
 
 def getOrCreateFolder(folderPath) {
-    def folderFullPath = folderPath.join(' - ')
+    def parentId = 0
+    folderPath.each { folderName ->
+        def response = httpRequest(
+            httpMode: 'GET',
+            url: "${params.GRAFANA_URL}/api/folders",
+            customHeaders: [
+                [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
+                [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
+            ]
+        )
+
+        def folders = new groovy.json.JsonSlurperClassic().parseText(response.content)
+        def folder = folders.find { it.title == folderName }
+
+        if (folder) {
+            parentId = folder.id
+        } else {
+            def createResponse = httpRequest(
+                httpMode: 'POST',
+                url: "${params.GRAFANA_URL}/api/folders",
+                contentType: 'APPLICATION_JSON',
+                customHeaders: [
+                    [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
+                    [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
+                ],
+                requestBody: """{
+                    \"title\": \"${folderName}\"
+                }"""
+            )
+
+            def createdFolder = new groovy.json.JsonSlurperClassic().parseText(createResponse.content)
+            parentId = createdFolder.id
+        }
+    }
+    return parentId
+}
+
+def getDatasources() {
     def response = httpRequest(
         httpMode: 'GET',
-        url: "${params.GRAFANA_URL}/api/folders",
+        url: "${params.GRAFANA_URL}/api/datasources",
         customHeaders: [
             [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
             [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
         ]
     )
 
-    def folders = new groovy.json.JsonSlurperClassic().parseText(response.content)
-    def folder = folders.find { it.title == folderFullPath }
+    return new groovy.json.JsonSlurperClassic().parseText(response.content)
+}
 
-    if (folder) {
-        return folder.id
-    } else {
-        def createResponse = httpRequest(
-            httpMode: 'POST',
-            url: "${params.GRAFANA_URL}/api/folders",
-            contentType: 'APPLICATION_JSON',
-            customHeaders: [
-                [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
-                [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
-            ],
-            requestBody: """{
-                \"title\": \"${folderFullPath}\"
-            }"""
-        )
+@NonCPS
+def updateDatasourceIds(rawJson, datasources) {
+    def parser = new groovy.json.JsonSlurperClassic()
+    def dashboard = parser.parseText(rawJson)
 
-        def createdFolder = new groovy.json.JsonSlurperClassic().parseText(createResponse.content)
-        return createdFolder.id
+    dashboard.panels.each { panel ->
+        if (panel.datasource) {
+            def matchingDs = datasources.find { it.name == panel.datasource.name }
+            if (matchingDs) {
+                panel.datasource.uid = matchingDs.uid
+            }
+        }
     }
+
+    return groovy.json.JsonOutput.toJson(dashboard)
 }
