@@ -84,4 +84,18 @@ pipeline {
             }
         }
     }
+
+    // Função auxiliar para obter os datasources existentes no Grafana
+    def obterListaDatasources() {
+        def response = httpRequest(
+            httpMode: 'GET',
+            url: "${params.GRAFANA_URL}/api/datasources",
+            customHeaders: [
+                [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
+                [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
+            ]
+        )
+
+        return new groovy.json.JsonSlurperClassic().parseText(response.content)
+    }
 }
