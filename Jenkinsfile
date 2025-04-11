@@ -8,10 +8,11 @@ pipeline {
     }
 
     stages {
-        stage('Clonar repositório') {
+        stage('Preparar Ambiente') {
             steps {
-                echo '🌀 Clonando o repositório com dashboards...'
-                git branch: 'main', url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git'
+                echo '🏗️ Preparando ambiente...'
+                cleanWs()
+                checkout scm
             }
         }
 
