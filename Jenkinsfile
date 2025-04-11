@@ -15,6 +15,51 @@ pipeline {
             }
         }
 
+        stage('Identificar e Criar Datasources') {
+            steps {
+                script {
+                    echo '🔍 Identificando datasources nas dashboards...'
+                    def dashboards = findFiles(glob: '**/*.json')
+                    def datasources = []
+
+                    dashboards.each { file ->
+                        def rawJson = readFile(file.path)
+                        def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
+
+                        json?.templating?.list?.each { item ->
+                            if (item.type == 'datasource' && item.query && !datasources.contains(item.query)) {
+                                datasources << item.query
+                            }
+                        }
+                    }
+
+                    echo "🔧 Datasources identificados: ${datasources}" 
+
+                    datasources.each { datasource ->
+                        def requestBody = """{
+                            \"name\": \"${datasource}\",
+                            \"type\": \"prometheus\",
+                            \"access\": \"proxy\",
+                            \"url\": \"http://localhost:9090\"
+                        }"""
+
+                        def response = httpRequest(
+                            httpMode: 'POST',
+                            url: "${params.GRAFANA_URL}/api/datasources",
+                            contentType: 'APPLICATION_JSON',
+                            customHeaders: [
+                                [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
+                                [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
+                            ],
+                            requestBody: requestBody
+                        )
+
+                        echo "✅ Datasource '${datasource}' criado com status: ${response.status}"
+                    }
+                }
+            }
+        }
+
         stage('Publicar dashboards no Grafana') {
             steps {
                 script {
@@ -46,7 +91,7 @@ pipeline {
                             requestBody: requestBody
                         )
 
-                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status} na pasta '${folderPath.join('/')}'"
+                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status} na pasta '${folderPath.join('/')}""
                     }
                 }
             }
