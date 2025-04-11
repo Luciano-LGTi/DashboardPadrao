@@ -8,40 +8,10 @@ pipeline {
     }
 
     stages {
-        stage('Preparar Ambiente') {
+        stage('Clonar repositório') {
             steps {
-                echo '🏗️ Preparando ambiente...'
-                deleteDir()
-                checkout scm
-            }
-        }
-
-        stage('Identificar e Criar Datasources') {
-            steps {
-                script {
-                    echo '🔍 Identificando datasources nas dashboards...'
-
-                    def dashboards = findFiles(glob: '**/*.json')
-                    def datasourcesEncontrados = []
-
-                    dashboards.each { file ->
-                        def content = readFile(file.path)
-                        def json = new groovy.json.JsonSlurperClassic().parseText(content)
-
-                        json.__inputs?.each { input ->
-                            if (input.type == 'datasource') {
-                                datasourcesEncontrados << [name: input.name, type: input.pluginId ?: 'mysql']
-                            }
-                        }
-                    }
-
-                    datasourcesEncontrados.unique().each { ds ->
-                        echo "🔧 Verificando datasource: ${ds.name}"
-                        if (!verificarDatasourceExistente(this, ds.name)) {
-                            criarDatasource(this, ds.name, ds.type)
-                        }
-                    }
-                }
+                echo '🌀 Clonando o repositório com dashboards...'
+                git branch: 'main', url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git'
             }
         }
 
@@ -52,15 +22,12 @@ pipeline {
                     def dashboards = findFiles(glob: '**/*.json')
                     echo "📊 Dashboards encontrados: ${dashboards.size()}"
 
-                    def datasources = obterListaDatasources(this)
-
                     dashboards.each { file ->
                         def folderPath = file.path.tokenize('/')[0..-2]
                         def rawJson = readFile(file.path)
-                        def jsonStr = this.removeIdField(rawJson)
-                        jsonStr = updateDatasourceIds(jsonStr, datasources)
+                        def jsonStr = removeIdField(rawJson)
 
-                        def folderId = getOrCreateFolder(this, folderPath.join(' - '))
+                        def folderId = getOrCreateFolder(folderPath)
 
                         def requestBody = """{
                             \"dashboard\": ${jsonStr},
@@ -79,7 +46,7 @@ pipeline {
                             requestBody: requestBody
                         )
 
-                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status} na pasta '${folderPath.join(' - ')}'"
+                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status} na pasta '${folderPath.join('/')}""
                     }
                 }
             }
@@ -87,23 +54,45 @@ pipeline {
     }
 }
 
-// Função auxiliar para obter os datasources existentes no Grafana
-def obterListaDatasources(context) {
-    def response = context.httpRequest(
+@NonCPS
+def removeIdField(rawJson) {
+    def parser = new groovy.json.JsonSlurperClassic()
+    def obj = parser.parseText(rawJson)
+    obj.remove('id')
+    return groovy.json.JsonOutput.toJson(obj)
+}
+
+def getOrCreateFolder(folderPath) {
+    def folderFullPath = folderPath.join(' - ')
+    def response = httpRequest(
         httpMode: 'GET',
-        url: "${context.params.GRAFANA_URL}/api/datasources",
+        url: "${params.GRAFANA_URL}/api/folders",
         customHeaders: [
-            [name: 'Authorization', value: "Bearer ${context.params.API_KEY}"],
-            [name: 'X-Grafana-Org-Id', value: "${context.params.ORG_ID}"]
+            [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
+            [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
         ]
     )
 
-    return new groovy.json.JsonSlurperClassic().parseText(response.content)
-}
+    def folders = new groovy.json.JsonSlurperClassic().parseText(response.content)
+    def folder = folders.find { it.title == folderFullPath }
 
-// Função auxiliar para remover o campo 'id' dos dashboards
-def removeIdField(rawJson) {
-    def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
-    json.remove('id')
-    return groovy.json.JsonOutput.toJson(json)
+    if (folder) {
+        return folder.id
+    } else {
+        def createResponse = httpRequest(
+            httpMode: 'POST',
+            url: "${params.GRAFANA_URL}/api/folders",
+            contentType: 'APPLICATION_JSON',
+            customHeaders: [
+                [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
+                [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
+            ],
+            requestBody: """{
+                \"title\": \"${folderFullPath}\"
+            }"""
+        )
+
+        def createdFolder = new groovy.json.JsonSlurperClassic().parseText(createResponse.content)
+        return createdFolder.id
+    }
 }
