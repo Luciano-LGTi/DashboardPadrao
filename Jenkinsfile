@@ -57,7 +57,7 @@ pipeline {
                     dashboards.each { file ->
                         def folderPath = file.path.tokenize('/')[0..-2]
                         def rawJson = readFile(file.path)
-                        def jsonStr = context.removeIdField(rawJson)
+                        def jsonStr = removeIdField(rawJson)
                         jsonStr = updateDatasourceIds(jsonStr, datasources)
 
                         def folderId = getOrCreateFolder(this, folderPath.join(' - '))
@@ -99,4 +99,11 @@ def obterListaDatasources(context) {
     )
 
     return new groovy.json.JsonSlurperClassic().parseText(response.content)
+}
+
+// Função auxiliar para remover o campo 'id' dos dashboards
+def removeIdField(rawJson) {
+    def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
+    json.remove('id')
+    return groovy.json.JsonOutput.toJson(json)
 }
