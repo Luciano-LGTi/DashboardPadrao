@@ -11,7 +11,7 @@ pipeline {
         stage('Preparar Ambiente') {
             steps {
                 echo '🏗️ Preparando ambiente...'
-                cleanWs()
+                deleteDir()
                 checkout scm
             }
         }
