@@ -6,4 +6,6 @@ Token ID 2: glsa_r3em4baW4adYJO4PlpGQjTozWn0RS9jZ_1830e082
 Token ID 3: glsa_CGP0VOrzttOBFmaod1DAZKa05nHRA1IP_f361ccc8
 
 
+Admin-Deploy: glsa_Cnj7LLz8zSOMSBKnOrkpxwgRwoxr0KFn_5d51bfcb
+
 https://portal-dev.cloudash.com.br
