@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Clonar repositório') {
             steps {
-                echo '🌀 Clonando o repositório com dashboards...'
+                echo '🎠 Clonando o repositório com dashboards...'
                 git branch: 'main', url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git'
             }
         }
