@@ -33,7 +33,7 @@ pipeline {
                         }
                     }
 
-                    echo "🔧 Datasources identificados: ${datasources}" 
+                    echo "🔧 Datasources identificados: ${datasources}"
 
                     datasources.each { datasource ->
                         def requestBody = """{
