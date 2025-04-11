@@ -20,14 +20,14 @@ pipeline {
                 script {
                     echo '🔍 Identificando datasources nas dashboards...'
                     def dashboards = findFiles(glob: '**/*.json')
-                    def datasources = []
+                    def datasources = [] as Set
 
                     dashboards.each { file ->
                         def rawJson = readFile(file.path)
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
                         json?.templating?.list?.each { item ->
-                            if (item.type == 'datasource' && item.query && !datasources.contains(item.query)) {
+                            if (item.type == 'datasource' && item.query) {
                                 datasources << item.query
                             }
                         }
@@ -91,8 +91,7 @@ pipeline {
                             requestBody: requestBody
                         )
 
-                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status} na pasta '${folderPath.join('/')}'"
-
+                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status} na pasta '${folderPath.join('/')}""
                     }
                 }
             }
