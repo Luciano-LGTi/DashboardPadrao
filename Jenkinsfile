@@ -16,6 +16,32 @@ pipeline {
             }
         }
 
+        stage('Identificar e Criar Datasources') {
+            steps {
+                script {
+                    echo '🔍 Identificando datasources nas dashboards...'
+
+                    def dashboards = findFiles(glob: '**/*.json')
+                    def datasourcesEncontrados = []
+
+                    dashboards.each { file ->
+                        def content = readFile(file.path)
+                        def json = new groovy.json.JsonSlurperClassic().parseText(content)
+
+                        json.__inputs?.each { input ->
+                            if (input.type == 'datasource') {
+                                datasourcesEncontrados << [name: input.name, type: input.pluginId ?: 'mysql']
+                            }
+                        }
+                    }
+
+                    datasourcesEncontrados.unique().each { ds ->
+                        criarDatasourceSeNaoExistir(ds.name, ds.type)
+                    }
+                }
+            }
+        }
+
         stage('Publicar dashboards no Grafana') {
             steps {
                 script {
@@ -57,83 +83,4 @@ pipeline {
     }
 }
 
-@NonCPS
-def removeIdField(rawJson) {
-    def parser = new groovy.json.JsonSlurperClassic()
-    def obj = parser.parseText(rawJson)
-    obj.remove('id')
-    return groovy.json.JsonOutput.toJson(obj)
-}
-
-def getOrCreateFolder(folderName) {
-    def response = httpRequest(
-        httpMode: 'GET',
-        url: "${params.GRAFANA_URL}/api/folders",
-        customHeaders: [
-            [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
-            [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
-        ]
-    )
-
-    def folders = new groovy.json.JsonSlurperClassic().parseText(response.content)
-    def folder = folders.find { it.title == folderName }
-
-    if (folder) {
-        return folder.id
-    } else {
-        def createResponse = httpRequest(
-            httpMode: 'POST',
-            url: "${params.GRAFANA_URL}/api/folders",
-            contentType: 'APPLICATION_JSON',
-            customHeaders: [
-                [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
-                [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
-            ],
-            requestBody: """{
-                \"title\": \"${folderName}\"
-            }"""
-        )
-
-        def createdFolder = new groovy.json.JsonSlurperClassic().parseText(createResponse.content)
-        return createdFolder.id
-    }
-}
-
-def getDatasources() {
-    def response = httpRequest(
-        httpMode: 'GET',
-        url: "${params.GRAFANA_URL}/api/datasources",
-        customHeaders: [
-            [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
-            [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
-        ]
-    )
-
-    return new groovy.json.JsonSlurperClassic().parseText(response.content)
-}
-
-@NonCPS
-def updateDatasourceIds(rawJson, datasources) {
-    def parser = new groovy.json.JsonSlurperClassic()
-    def dashboard = parser.parseText(rawJson)
-
-    updateDatasourceRecursive(dashboard, datasources)
-
-    return groovy.json.JsonOutput.toJson(dashboard)
-}
-
-@NonCPS
-def updateDatasourceRecursive(node, datasources) {
-    if (node instanceof Map) {
-        if (node.containsKey('datasource') && node.datasource instanceof Map && node.datasource.type) {
-            def dsType = node.datasource.type
-            def matchingDs = datasources.find { it.type == dsType }
-            if (matchingDs) {
-                node.datasource.uid = matchingDs.uid
-            }
-        }
-        node.each { k, v -> updateDatasourceRecursive(v, datasources) }
-    } else if (node instanceof List) {
-        node.each { updateDatasourceRecursive(it, datasources) }
-    }
-}
+// Funções auxiliares existentes seguem abaixo...
