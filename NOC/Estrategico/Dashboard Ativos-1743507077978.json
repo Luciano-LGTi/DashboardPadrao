@@ -19,15 +19,20 @@ pipeline {
 
                   dashboardFiles.each { file ->
                       def content = readFile(file.path)
-                      def json = new groovy.json.JsonSlurper().parseText(content)
 
-                      json.__inputs?.each { input ->
-                          if (input.type == 'datasource') {
-                              datasources.add([
-                                  name: input.name,
-                                  type: input.pluginId ?: 'mysql'
-                              ])
+                      if (content.trim().startsWith('{') || content.trim().startsWith('[')) {
+                          def json = new groovy.json.JsonSlurper().parseText(content)
+
+                          json.__inputs?.each { input ->
+                              if (input.type == 'datasource') {
+                                  datasources.add([
+                                      name: input.name,
+                                      type: input.pluginId ?: 'mysql'
+                                  ])
+                              }
                           }
+                      } else {
+                          echo "⚠️ Arquivo ${file.path} ignorado - Conteúdo inválido para JSON"
                       }
                   }
 
