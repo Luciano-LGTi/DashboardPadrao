@@ -57,7 +57,7 @@ pipeline {
                     dashboards.each { file ->
                         def folderPath = file.path.tokenize('/')[0..-2]
                         def rawJson = readFile(file.path)
-                        def jsonStr = removeIdField(this, rawJson)
+                        def jsonStr = context.removeIdField(rawJson)
                         jsonStr = updateDatasourceIds(jsonStr, datasources)
 
                         def folderId = getOrCreateFolder(this, folderPath.join(' - '))
