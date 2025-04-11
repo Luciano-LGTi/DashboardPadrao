@@ -37,8 +37,8 @@ pipeline {
 
                     datasourcesEncontrados.unique().each { ds ->
                         echo "🔧 Verificando datasource: ${ds.name}"
-                        if (!verificarDatasourceExistente(ds.name)) {
-                            criarDatasource(ds.name, ds.type)
+                        if (!verificarDatasourceExistente(this, ds.name)) {
+                            criarDatasource(this, ds.name, ds.type)
                         }
                     }
                 }
@@ -59,7 +59,7 @@ pipeline {
                         def rawJson = readFile(file.path)
                         def jsonStr = updateDatasourceIds(removeIdField(this, rawJson), datasources)
 
-                        def folderId = getOrCreateFolder(folderPath.join(' - '))
+                        def folderId = getOrCreateFolder(this, folderPath.join(' - '))
 
                         def requestBody = """{
                             \"dashboard\": ${jsonStr},
