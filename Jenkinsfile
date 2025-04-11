@@ -36,7 +36,10 @@ pipeline {
                     }
 
                     datasourcesEncontrados.unique().each { ds ->
-                        criarDatasourceSeNaoExistir(ds.name, ds.type)
+                        echo "🔧 Verificando datasource: ${ds.name}"
+                        if (!verificarDatasourceExistente(ds.name)) {
+                            criarDatasource(ds.name, ds.type)
+                        }
                     }
                 }
             }
@@ -49,7 +52,7 @@ pipeline {
                     def dashboards = findFiles(glob: '**/*.json')
                     echo "📊 Dashboards encontrados: ${dashboards.size()}"
 
-                    def datasources = getDatasources()
+                    def datasources = obterListaDatasources()
 
                     dashboards.each { file ->
                         def folderPath = file.path.tokenize('/')[0..-2]
@@ -82,5 +85,3 @@ pipeline {
         }
     }
 }
-
-// Funções auxiliares existentes seguem abaixo...
