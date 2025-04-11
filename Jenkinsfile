@@ -52,7 +52,7 @@ pipeline {
                     def dashboards = findFiles(glob: '**/*.json')
                     echo "📊 Dashboards encontrados: ${dashboards.size()}"
 
-                    def datasources = obterListaDatasources()
+                    def datasources = obterListaDatasources(this)
 
                     dashboards.each { file ->
                         def folderPath = file.path.tokenize('/')[0..-2]
@@ -84,18 +84,18 @@ pipeline {
             }
         }
     }
+}
 
-    // Função auxiliar para obter os datasources existentes no Grafana
-    def obterListaDatasources() {
-        def response = httpRequest(
-            httpMode: 'GET',
-            url: "${params.GRAFANA_URL}/api/datasources",
-            customHeaders: [
-                [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
-                [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
-            ]
-        )
+// Função auxiliar para obter os datasources existentes no Grafana
+def obterListaDatasources(context) {
+    def response = context.httpRequest(
+        httpMode: 'GET',
+        url: "${context.params.GRAFANA_URL}/api/datasources",
+        customHeaders: [
+            [name: 'Authorization', value: "Bearer ${context.params.API_KEY}"],
+            [name: 'X-Grafana-Org-Id', value: "${context.params.ORG_ID}"]
+        ]
+    )
 
-        return new groovy.json.JsonSlurperClassic().parseText(response.content)
-    }
+    return new groovy.json.JsonSlurperClassic().parseText(response.content)
 }
