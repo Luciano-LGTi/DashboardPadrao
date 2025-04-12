@@ -30,7 +30,7 @@ pipeline {
                         json?.templating?.list?.each { template ->
                             if (template.datasource) {
                                 def ds = template.datasource instanceof Map ? template.datasource.uid : template.datasource
-                                def dstype = template.datasource instanceof Map ? template.datasource.type : 'mysql'
+                                def dstype = template.datasource instanceof Map && template.datasource.type ? template.datasource.type : 'prometheus'
                                 datasources[ds] = dstype
                             }
                         }
@@ -39,7 +39,7 @@ pipeline {
                             panel?.targets?.each { target ->
                                 if (target.datasource) {
                                     def ds = target.datasource instanceof Map ? target.datasource.uid : target.datasource
-                                    def dstype = target.datasource instanceof Map ? target.datasource.type : 'mysql'
+                                    def dstype = target.datasource instanceof Map && target.datasource.type ? target.datasource.type : 'prometheus'
                                     datasources[ds] = dstype
                                 }
                             }
