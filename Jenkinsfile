@@ -27,7 +27,7 @@ pipeline {
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
                         json.panels?.each { panel ->
-                            if (panel.datasource && panel.datasource != null) {
+                            if (panel.datasource) {
                                 def datasourceName = panel.datasource instanceof Map ? panel.datasource.uid : panel.datasource
                                 def datasourceType = panel.type ?: 'prometheus'
 
