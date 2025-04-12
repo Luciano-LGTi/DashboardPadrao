@@ -27,17 +27,17 @@ pipeline {
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
                         json?.templating?.list?.each { template ->
-                            if (template.datasource && template.datasourceType) {
+                            if (template.datasource && template.type) {
                                 def ds = template.datasource instanceof Map ? template.datasource.uid : template.datasource
-                                datasources[ds] = template.datasourceType
+                                datasources[ds] = template.type
                             }
                         }
 
                         json?.panels?.each { panel ->
                             panel?.targets?.each { target ->
-                                if (target.datasource && target.datasourceType) {
+                                if (target.datasource && target.type) {
                                     def ds = target.datasource instanceof Map ? target.datasource.uid : target.datasource
-                                    datasources[ds] = target.datasourceType
+                                    datasources[ds] = target.type
                                 }
                             }
                         }
@@ -48,7 +48,7 @@ pipeline {
                     datasources.each { ds, dstype ->
                         def responseGet = httpRequest(
                             httpMode: 'GET',
-                            url: "${params.GRAFANA_URL}/api/datasources/name/${dstype}",
+                            url: "${params.GRAFANA_URL}/api/datasources/name/${ds}",
                             customHeaders: [
                                 [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
                                 [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
@@ -58,7 +58,7 @@ pipeline {
 
                         if (responseGet.status == 404) {
                             def requestBody = """{
-                                \"name\": \"${dstype}\",
+                                \"name\": \"${ds}\",
                                 \"type\": \"${dstype}\",
                                 \"access\": \"proxy\",
                                 \"url\": \"http://${ds}.local\",
@@ -78,9 +78,9 @@ pipeline {
                                 requestBody: requestBody
                             )
 
-                            echo "✅ Datasource '${dstype}' criado com status: ${responseCreate.status}"
+                            echo "✅ Datasource '${ds}' criado com status: ${responseCreate.status}"
                         } else {
-                            echo "ℹ️ Datasource '${dstype}' já existe."
+                            echo "ℹ️ Datasource '${ds}' já existe."
                         }
                     }
                 }
