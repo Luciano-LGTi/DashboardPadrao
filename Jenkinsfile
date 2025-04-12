@@ -27,17 +27,19 @@ pipeline {
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
                         json?.templating?.list?.each { template ->
-                            if (template.datasource && template.type) {
+                            if (template.datasource) {
                                 def ds = template.datasource instanceof Map ? template.datasource.uid : template.datasource
-                                datasources[ds] = template.type
+                                def dstype = template.datasourceType ?: 'mysql'
+                                datasources[ds] = dstype
                             }
                         }
 
                         json?.panels?.each { panel ->
                             panel?.targets?.each { target ->
-                                if (target.datasource && target.type) {
+                                if (target.datasource) {
                                     def ds = target.datasource instanceof Map ? target.datasource.uid : target.datasource
-                                    datasources[ds] = target.type
+                                    def dstype = target.datasourceType ?: 'mysql'
+                                    datasources[ds] = dstype
                                 }
                             }
                         }
@@ -93,33 +95,6 @@ pipeline {
                     echo '🚀 Iniciando publicação dos dashboards...'
                     def dashboards = findFiles(glob: '**/*.json')
                     echo "📊 Dashboards encontrados: ${dashboards.size()}"
-
-                    dashboards.each { file ->
-                        def folderPath = file.path.tokenize('/')[0..-2]
-                        def rawJson = readFile(file.path)
-                        def jsonStr = removeIdField(rawJson)
-
-                        def folderId = getOrCreateFolder(folderPath)
-
-                        def requestBody = """{
-                            \"dashboard\": ${jsonStr},
-                            \"overwrite\": true,
-                            \"folderId\": ${folderId}
-                        }"""
-
-                        def response = httpRequest(
-                            httpMode: 'POST',
-                            url: "${params.GRAFANA_URL}/api/dashboards/import",
-                            contentType: 'APPLICATION_JSON',
-                            customHeaders: [
-                                [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
-                                [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
-                            ],
-                            requestBody: requestBody
-                        )
-
-                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status} na pasta '${folderPath.join('/')}'"
-                    }
                 }
             }
         }
