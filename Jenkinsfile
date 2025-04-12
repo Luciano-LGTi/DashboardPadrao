@@ -29,18 +29,18 @@ pipeline {
                         def foundDS = []
 
                         json?.templating?.list?.each { template ->
-                            if (template.datasource) {
-                                foundDS << (template.datasource instanceof Map ? template.datasource.uid : template.datasource)
+                            if (template.type) {
+                                foundDS << template.type
                             }
                         }
 
                         json?.panels?.each { panel ->
-                            if (panel.datasource) {
-                                foundDS << (panel.datasource instanceof Map ? panel.datasource.uid : panel.datasource)
+                            if (panel.type) {
+                                foundDS << panel.type
                             }
                             panel?.targets?.each { target ->
-                                if (target.datasource) {
-                                    foundDS << (target.datasource instanceof Map ? target.datasource.uid : target.datasource)
+                                if (target.type) {
+                                    foundDS << target.type
                                 }
                             }
                         }
