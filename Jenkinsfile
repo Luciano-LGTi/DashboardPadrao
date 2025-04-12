@@ -68,7 +68,7 @@ pipeline {
                         if (responseGet.status == 404) {
                             def requestBody = """{
                                 \"name\": \"${ds}\",
-                                \"type\": \"prometheus\",
+                                \"type\": \"${ds}\",
                                 \"access\": \"proxy\",
                                 \"url\": \"http://${ds}.local\",
                                 \"database\": \"${ds}_db\",
