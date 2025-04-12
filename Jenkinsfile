@@ -27,26 +27,20 @@ pipeline {
                         def rawJson = readFile(file.path)
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
+                        if (json?.datasource instanceof Map && json?.datasource?.type) {
+                            datasources[json.datasource.type] = json.datasource.type
+                        }
+
                         json?.templating?.list?.each { template ->
-                            if (template.datasource) {
-                                def ds = template.datasource instanceof Map ? template.datasource.uid : template.datasource
-                                def dstype = template.datasource instanceof Map && template.datasource.type ? template.datasource.type : null
-                                if (dstype == null && json?.datasource) {
-                                    dstype = json.datasource instanceof Map && json.datasource.type ? json.datasource.type : json.datasource
-                                }
-                                datasources[ds] = dstype ?: 'prometheus'
+                            if (template?.datasource instanceof Map && template?.datasource?.type) {
+                                datasources[template.datasource.type] = template.datasource.type
                             }
                         }
 
                         json?.panels?.each { panel ->
                             panel?.targets?.each { target ->
-                                if (target.datasource) {
-                                    def ds = target.datasource instanceof Map ? target.datasource.uid : target.datasource
-                                    def dstype = target.datasource instanceof Map && target.datasource.type ? target.datasource.type : null
-                                    if (dstype == null && json?.datasource) {
-                                        dstype = json.datasource instanceof Map && json.datasource.type ? json.datasource.type : json.datasource
-                                    }
-                                    datasources[ds] = dstype ?: 'prometheus'
+                                if (target?.datasource instanceof Map && target?.datasource?.type) {
+                                    datasources[target.datasource.type] = target.datasource.type
                                 }
                             }
                         }
