@@ -68,7 +68,7 @@ pipeline {
                         if (responseGet.status == 404) {
                             def requestBody = """{
                                 \"name\": \"${ds}\",
-                                \"type\": \"${ds}\",
+                                \"type\": \"mysql\",
                                 \"access\": \"proxy\",
                                 \"url\": \"http://${ds}.local\",
                                 \"database\": \"${ds}_db\",
