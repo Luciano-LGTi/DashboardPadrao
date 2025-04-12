@@ -27,21 +27,17 @@ pipeline {
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
                         json?.templating?.list?.each { template ->
-                            if (template.datasource && template.type) {
+                            if (template.datasource) {
                                 def ds = template.datasource instanceof Map ? template.datasource.uid : template.datasource
-                                datasources[ds] = template.type
+                                datasources[ds] = 'mysql'
                             }
                         }
 
                         json?.panels?.each { panel ->
-                            if (panel.datasource && panel.type) {
-                                def ds = panel.datasource instanceof Map ? panel.datasource.uid : panel.datasource
-                                datasources[ds] = panel.type
-                            }
                             panel?.targets?.each { target ->
-                                if (target.datasource && target.type) {
+                                if (target.datasource) {
                                     def ds = target.datasource instanceof Map ? target.datasource.uid : target.datasource
-                                    datasources[ds] = target.type
+                                    datasources[ds] = 'mysql'
                                 }
                             }
                         }
