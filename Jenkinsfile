@@ -5,13 +5,14 @@ pipeline {
         string(name: 'GRAFANA_URL', defaultValue: 'http://grafana:3000', description: 'URL da instância Grafana')
         string(name: 'API_KEY', description: 'API Token Grafana com permissão de administrador')
         string(name: 'ORG_ID', defaultValue: '1', description: 'ID da organização no Grafana')
+        string(name: 'BRANCH', defaultValue: 'main', description: 'Branch do repositório')
     }
 
     stages {
         stage('Clonar repositório') {
             steps {
                 echo '🌠 Clonando o repositório com dashboards...'
-                git branch: 'main', url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git'
+                git branch: "${params.BRANCH}", url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git'
             }
         }
 
@@ -29,7 +30,7 @@ pipeline {
                         json?.templating?.list?.each { template ->
                             if (template.datasource) {
                                 def ds = template.datasource instanceof Map ? template.datasource.uid : template.datasource
-                                def dstype = template.type ?: 'mysql'
+                                def dstype = template.datasource instanceof Map ? template.datasource.type : 'mysql'
                                 datasources[ds] = dstype
                             }
                         }
@@ -38,7 +39,7 @@ pipeline {
                             panel?.targets?.each { target ->
                                 if (target.datasource) {
                                     def ds = target.datasource instanceof Map ? target.datasource.uid : target.datasource
-                                    def dstype = target.type ?: 'mysql'
+                                    def dstype = target.datasource instanceof Map ? target.datasource.type : 'mysql'
                                     datasources[ds] = dstype
                                 }
                             }
