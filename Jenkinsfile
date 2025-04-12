@@ -27,19 +27,19 @@ pipeline {
                         def rawJson = readFile(file.path)
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
-                        if (json?.datasource instanceof Map && json?.datasource?.type) {
+                        if (json?.datasource?.type) {
                             datasources[json.datasource.type] = json.datasource.type
                         }
 
                         json?.templating?.list?.each { template ->
-                            if (template?.datasource instanceof Map && template?.datasource?.type) {
+                            if (template?.datasource?.type) {
                                 datasources[template.datasource.type] = template.datasource.type
                             }
                         }
 
                         json?.panels?.each { panel ->
                             panel?.targets?.each { target ->
-                                if (target?.datasource instanceof Map && target?.datasource?.type) {
+                                if (target?.datasource?.type) {
                                     datasources[target.datasource.type] = target.datasource.type
                                 }
                             }
@@ -65,7 +65,6 @@ pipeline {
                                 \"type\": \"${dstype}\",
                                 \"access\": \"proxy\",
                                 \"url\": \"http://${ds}.local\",
-                                \"database\": \"${ds}_db\",
                                 \"basicAuth\": false,
                                 \"isDefault\": false
                             }"""
