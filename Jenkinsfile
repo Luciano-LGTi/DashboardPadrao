@@ -31,7 +31,7 @@ pipeline {
                                 def datasourceName = panel.datasource instanceof Map ? panel.datasource.uid : panel.datasource
                                 def datasourceType = panel.type ?: 'prometheus'
 
-                                if (!datasources.find { it.name == datasourceName }) {
+                                if (!datasources.find { it.name == datasourceName && it.type == datasourceType }) {
                                     datasources << [name: datasourceName, type: datasourceType]
                                 }
                             }
@@ -53,7 +53,7 @@ pipeline {
 
                         if (responseGet.status == 404) {
                             def requestBody = """{
-                                \"name\": \"${ds.name}\",
+                                \"name\": \"${ds.name} - ${ds.type}\",
                                 \"type\": \"${ds.type}\",
                                 \"access\": \"proxy\",
                                 \"url\": \"http://localhost\"
