@@ -108,7 +108,7 @@ pipeline {
                             requestBody: requestBody
                         )
 
-                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status} na pasta '${folderPath.join('/')}""
+                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status} na pasta '${folderPath.join('/')}'"
                     }
                 }
             }
