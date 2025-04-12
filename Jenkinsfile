@@ -29,18 +29,18 @@ pipeline {
                         def foundDS = []
 
                         json?.templating?.list?.each { template ->
-                            if (template.type) {
-                                foundDS << template.type
+                            if (template.datasource) {
+                                foundDS << (template.datasource instanceof Map ? template.datasource.uid : template.datasource)
                             }
                         }
 
                         json?.panels?.each { panel ->
-                            if (panel.type) {
-                                foundDS << panel.type
+                            if (panel.datasource) {
+                                foundDS << (panel.datasource instanceof Map ? panel.datasource.uid : panel.datasource)
                             }
                             panel?.targets?.each { target ->
-                                if (target.type) {
-                                    foundDS << target.type
+                                if (target.datasource) {
+                                    foundDS << (target.datasource instanceof Map ? target.datasource.uid : target.datasource)
                                 }
                             }
                         }
@@ -68,7 +68,7 @@ pipeline {
                         if (responseGet.status == 404) {
                             def requestBody = """{
                                 \"name\": \"${ds}\",
-                                \"type\": \"${ds}\",
+                                \"type\": \"prometheus\",
                                 \"access\": \"proxy\",
                                 \"url\": \"http://${ds}.local\",
                                 \"database\": \"${ds}_db\",
@@ -132,48 +132,5 @@ pipeline {
                 }
             }
         }
-    }
-}
-
-@NonCPS
-def removeIdField(rawJson) {
-    def parser = new groovy.json.JsonSlurperClassic()
-    def obj = parser.parseText(rawJson)
-    obj.remove('id')
-    return groovy.json.JsonOutput.toJson(obj)
-}
-
-def getOrCreateFolder(folderPath) {
-    def folderFullPath = folderPath.join(' - ')
-    def response = httpRequest(
-        httpMode: 'GET',
-        url: "${params.GRAFANA_URL}/api/folders",
-        customHeaders: [
-            [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
-            [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
-        ]
-    )
-
-    def folders = new groovy.json.JsonSlurperClassic().parseText(response.content)
-    def folder = folders.find { it.title == folderFullPath }
-
-    if (folder) {
-        return folder.id
-    } else {
-        def createResponse = httpRequest(
-            httpMode: 'POST',
-            url: "${params.GRAFANA_URL}/api/folders",
-            contentType: 'APPLICATION_JSON',
-            customHeaders: [
-                [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
-                [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
-            ],
-            requestBody: """{
-                \"title\": \"${folderFullPath}\"
-            }"""
-        )
-
-        def createdFolder = new groovy.json.JsonSlurperClassic().parseText(createResponse.content)
-        return createdFolder.id
     }
 }
