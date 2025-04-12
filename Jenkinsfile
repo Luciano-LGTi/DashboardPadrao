@@ -27,22 +27,32 @@ pipeline {
                         def rawJson = readFile(file.path)
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
+                        // Procura por datasource.type em diversos níveis
+                        def types = []
+
                         if (json?.datasource?.type) {
-                            datasources[json.datasource.type] = json.datasource.type
+                            types << json.datasource.type
                         }
 
                         json?.templating?.list?.each { template ->
                             if (template?.datasource?.type) {
-                                datasources[template.datasource.type] = template.datasource.type
+                                types << template.datasource.type
                             }
                         }
 
                         json?.panels?.each { panel ->
                             panel?.targets?.each { target ->
                                 if (target?.datasource?.type) {
-                                    datasources[target.datasource.type] = target.datasource.type
+                                    types << target.datasource.type
+                                }
+                                if (target?.datasource && target?.datasource instanceof String) {
+                                    types << target.datasource
                                 }
                             }
+                        }
+
+                        types.each { t ->
+                            datasources[t] = t
                         }
                     }
 
