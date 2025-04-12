@@ -5,13 +5,14 @@ pipeline {
         string(name: 'GRAFANA_URL', defaultValue: 'http://grafana:3000', description: 'URL da instância Grafana')
         string(name: 'API_KEY', description: 'API Token Grafana com permissão de administrador')
         string(name: 'ORG_ID', defaultValue: '1', description: 'ID da organização no Grafana')
+        string(name: 'BRANCH', defaultValue: 'main', description: 'Branch do repositório')
     }
 
     stages {
         stage('Clonar repositório') {
             steps {
                 echo '🌠 Clonando o repositório com dashboards...'
-                git branch: 'main', url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git'
+                git branch: "${params.BRANCH}", url: 'https://github.com/Luciano-LGTi/DashboardPadrao.git'
             }
         }
 
