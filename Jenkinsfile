@@ -20,41 +20,36 @@ pipeline {
                 script {
                     echo '🔍 Identificando datasources nas dashboards...'
                     def dashboards = findFiles(glob: '**/*.json')
-                    def datasources = []
+                    def datasources = [:]
 
                     dashboards.each { file ->
                         def rawJson = readFile(file.path)
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
-                        def foundDS = []
-
                         json?.templating?.list?.each { template ->
-                            if (template.datasource) {
-                                foundDS << (template.datasource instanceof Map ? template.datasource.uid : template.datasource)
+                            if (template.datasource && template.type) {
+                                def ds = template.datasource instanceof Map ? template.datasource.uid : template.datasource
+                                datasources[ds] = template.type
                             }
                         }
 
                         json?.panels?.each { panel ->
-                            if (panel.datasource) {
-                                foundDS << (panel.datasource instanceof Map ? panel.datasource.uid : panel.datasource)
+                            if (panel.datasource && panel.type) {
+                                def ds = panel.datasource instanceof Map ? panel.datasource.uid : panel.datasource
+                                datasources[ds] = panel.type
                             }
                             panel?.targets?.each { target ->
-                                if (target.datasource) {
-                                    foundDS << (target.datasource instanceof Map ? target.datasource.uid : target.datasource)
+                                if (target.datasource && target.type) {
+                                    def ds = target.datasource instanceof Map ? target.datasource.uid : target.datasource
+                                    datasources[ds] = target.type
                                 }
-                            }
-                        }
-
-                        foundDS.unique().each { ds ->
-                            if (!datasources.contains(ds)) {
-                                datasources << ds
                             }
                         }
                     }
 
                     echo "🔧 Datasources identificados: ${datasources}"
 
-                    datasources.each { ds ->
+                    datasources.each { ds, dstype ->
                         def responseGet = httpRequest(
                             httpMode: 'GET',
                             url: "${params.GRAFANA_URL}/api/datasources/name/${ds}",
@@ -68,7 +63,7 @@ pipeline {
                         if (responseGet.status == 404) {
                             def requestBody = """{
                                 \"name\": \"${ds}\",
-                                \"type\": \"mysql\",
+                                \"type\": \"${dstype}\",
                                 \"access\": \"proxy\",
                                 \"url\": \"http://${ds}.local\",
                                 \"database\": \"${ds}_db\",
