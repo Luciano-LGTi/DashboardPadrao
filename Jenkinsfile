@@ -28,7 +28,7 @@ pipeline {
 
                         json.panels?.each { panel ->
                             if (panel.datasource && panel.datasource != null) {
-                                def datasourceName = panel.datasource
+                                def datasourceName = panel.datasource instanceof Map ? panel.datasource.uid : panel.datasource
                                 def datasourceType = panel.type ?: 'prometheus'
 
                                 if (!datasources.find { it.name == datasourceName }) {
@@ -43,7 +43,7 @@ pipeline {
                     datasources.each { ds ->
                         def responseGet = httpRequest(
                             httpMode: 'GET',
-                            url: "${params.GRAFANA_URL}/api/datasources/name/${ds.name}",
+                            url: "${params.GRAFANA_URL}/api/datasources/uid/${ds.name}",
                             customHeaders: [
                                 [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
                                 [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
