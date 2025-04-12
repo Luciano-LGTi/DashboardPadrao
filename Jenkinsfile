@@ -26,13 +26,11 @@ pipeline {
                         def rawJson = readFile(file.path)
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
-                        json.panels?.each { panel ->
-                            if (panel.datasource) {
-                                def datasourceName = panel.datasource instanceof Map ? panel.datasource.uid : panel.datasource
-                                def datasourceType = panel.type ?: 'prometheus'
-
-                                if (!datasources.find { it.name == datasourceName && it.type == datasourceType }) {
-                                    datasources << [name: datasourceName, type: datasourceType]
+                        json?.templating?.list?.each { template ->
+                            if (template.datasource) {
+                                def datasourceName = template.datasource instanceof Map ? template.datasource.uid : template.datasource
+                                if (!datasources.contains(datasourceName)) {
+                                    datasources << datasourceName
                                 }
                             }
                         }
@@ -43,7 +41,7 @@ pipeline {
                     datasources.each { ds ->
                         def responseGet = httpRequest(
                             httpMode: 'GET',
-                            url: "${params.GRAFANA_URL}/api/datasources/uid/${ds.name}",
+                            url: "${params.GRAFANA_URL}/api/datasources/name/${ds}",
                             customHeaders: [
                                 [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
                                 [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
@@ -53,8 +51,8 @@ pipeline {
 
                         if (responseGet.status == 404) {
                             def requestBody = """{
-                                \"name\": \"${ds.name} - ${ds.type}\",
-                                \"type\": \"${ds.type}\",
+                                \"name\": \"${ds}\",
+                                \"type\": \"prometheus\",
                                 \"access\": \"proxy\",
                                 \"url\": \"http://localhost\"
                             }"""
@@ -70,9 +68,9 @@ pipeline {
                                 requestBody: requestBody
                             )
 
-                            echo "✅ Datasource '${ds.name}' criado com status: ${responseCreate.status}"
+                            echo "✅ Datasource '${ds}' criado com status: ${responseCreate.status}"
                         } else {
-                            echo "ℹ️ Datasource '${ds.name}' já existe."
+                            echo "ℹ️ Datasource '${ds}' já existe."
                         }
                     }
                 }
@@ -110,7 +108,7 @@ pipeline {
                             requestBody: requestBody
                         )
 
-                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status} na pasta '${folderPath.join('/')}'"
+                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status} na pasta '${folderPath.join('/')}""
                     }
                 }
             }
@@ -125,7 +123,6 @@ def removeIdField(rawJson) {
     obj.remove('id')
     return groovy.json.JsonOutput.toJson(obj)
 }
-
 
 def getOrCreateFolder(folderPath) {
     def folderFullPath = folderPath.join(' - ')
