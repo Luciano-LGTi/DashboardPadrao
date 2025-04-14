@@ -47,7 +47,7 @@ pipeline {
                                 if (target?.datasource?.type) {
                                     types << target.datasource.type
                                 }
-                                // Ignora quando é só UID (String)
+                                // IGNORA se for somente uid
                             }
                         }
 
