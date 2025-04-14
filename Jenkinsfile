@@ -27,7 +27,6 @@ pipeline {
                         def rawJson = readFile(file.path)
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
 
-                        // Procura por datasource.type em diversos níveis
                         def types = []
 
                         if (json?.datasource?.type) {
