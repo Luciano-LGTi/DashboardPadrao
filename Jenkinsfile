@@ -23,37 +23,28 @@ pipeline {
                     def dashboards = findFiles(glob: '**/*.json')
                     def datasources = [:]
 
+                    def extractTypesRecursively
+                    extractTypesRecursively = { json ->
+                        if (json instanceof Map) {
+                            json.each { key, value ->
+                                if (key == 'datasource') {
+                                    if (value instanceof Map && value?.type && value.type != 'datasource') {
+                                        datasources[value.type] = value.type
+                                    }
+                                }
+                                extractTypesRecursively(value)
+                            }
+                        } else if (json instanceof List) {
+                            json.each { item ->
+                                extractTypesRecursively(item)
+                            }
+                        }
+                    }
+
                     dashboards.each { file ->
                         def rawJson = readFile(file.path)
                         def json = new groovy.json.JsonSlurperClassic().parseText(rawJson)
-
-                        def types = []
-
-                        def extractTypes = { obj ->
-                            if (obj instanceof String) {
-                                return
-                            }
-                            if (obj instanceof Map && obj?.type && obj?.type != 'datasource') {
-                                types << obj.type
-                            }
-                        }
-
-                        extractTypes(json?.datasource)
-
-                        json?.templating?.list?.each { template ->
-                            extractTypes(template?.datasource)
-                        }
-
-                        json?.panels?.each { panel ->
-                            extractTypes(panel?.datasource)
-                            panel?.targets?.each { target ->
-                                extractTypes(target?.datasource)
-                            }
-                        }
-
-                        types.each { t ->
-                            datasources[t] = t
-                        }
+                        extractTypesRecursively(json)
                     }
 
                     echo "🔧 Datasources identificados: ${datasources}"
