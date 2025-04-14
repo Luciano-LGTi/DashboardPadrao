@@ -30,6 +30,9 @@ pipeline {
                         def types = []
 
                         def extractTypes = { obj ->
+                            if (obj instanceof String) {
+                                return
+                            }
                             if (obj instanceof Map && obj?.type && obj?.type != 'datasource') {
                                 types << obj.type
                             }
