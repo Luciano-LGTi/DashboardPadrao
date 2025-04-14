@@ -29,31 +29,27 @@ pipeline {
 
                         def types = []
 
-                        if (json?.datasource instanceof Map && json?.datasource?.type) {
-                            types << json.datasource.type
+                        def extractTypes = { obj ->
+                            if (obj instanceof Map && obj?.type && obj?.type != 'datasource') {
+                                types << obj.type
+                            }
                         }
 
+                        extractTypes(json?.datasource)
+
                         json?.templating?.list?.each { template ->
-                            if (template?.datasource instanceof Map && template?.datasource?.type) {
-                                types << template.datasource.type
-                            }
+                            extractTypes(template?.datasource)
                         }
 
                         json?.panels?.each { panel ->
-                            if (panel?.datasource instanceof Map && panel?.datasource?.type) {
-                                types << panel.datasource.type
-                            }
+                            extractTypes(panel?.datasource)
                             panel?.targets?.each { target ->
-                                if (target?.datasource instanceof Map && target?.datasource?.type) {
-                                    types << target.datasource.type
-                                }
+                                extractTypes(target?.datasource)
                             }
                         }
 
                         types.each { t ->
-                            if (t && t != 'datasource') {
-                                datasources[t] = t
-                            }
+                            datasources[t] = t
                         }
                     }
 
