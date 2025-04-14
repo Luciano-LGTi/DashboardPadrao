@@ -40,6 +40,9 @@ pipeline {
                         }
 
                         json?.panels?.each { panel ->
+                            if (panel?.datasource?.type) {
+                                types << panel.datasource.type
+                            }
                             panel?.targets?.each { target ->
                                 if (target?.datasource?.type) {
                                     types << target.datasource.type
@@ -51,7 +54,9 @@ pipeline {
                         }
 
                         types.each { t ->
-                            datasources[t] = t
+                            if (t != "datasource") {  // Corrigido para ignorar internos do Grafana
+                                datasources[t] = t
+                            }
                         }
                     }
 
@@ -103,7 +108,23 @@ pipeline {
                 script {
                     echo '🚀 Iniciando publicação dos dashboards...'
                     def dashboards = findFiles(glob: '**/*.json')
-                    echo "📊 Dashboards encontrados: ${dashboards.size()}"
+
+                    dashboards.each { file ->
+                        def rawJson = readFile(file.path)
+
+                        def response = httpRequest(
+                            httpMode: 'POST',
+                            url: "${params.GRAFANA_URL}/api/dashboards/db",
+                            contentType: 'APPLICATION_JSON',
+                            customHeaders: [
+                                [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
+                                [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
+                            ],
+                            requestBody: rawJson
+                        )
+
+                        echo "✅ Dashboard '${file.name}' publicado com status: ${response.status}"
+                    }
                 }
             }
         }
