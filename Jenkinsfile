@@ -47,14 +47,12 @@ pipeline {
                                 if (target?.datasource?.type) {
                                     types << target.datasource.type
                                 }
-                                if (target?.datasource && target?.datasource instanceof String) {
-                                    types << target.datasource
-                                }
+                                // Ignora quando é só UID (String)
                             }
                         }
 
                         types.each { t ->
-                            if (t != "datasource") {  // Corrigido para ignorar internos do Grafana
+                            if (t != "datasource") {
                                 datasources[t] = t
                             }
                         }
