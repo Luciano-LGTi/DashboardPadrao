@@ -51,7 +51,7 @@ pipeline {
                         }
 
                         types.each { t ->
-                            if (t != "datasource") {
+                            if (t && t != 'datasource') {
                                 datasources[t] = t
                             }
                         }
@@ -62,7 +62,7 @@ pipeline {
                     datasources.each { ds, dstype ->
                         def responseGet = httpRequest(
                             httpMode: 'GET',
-                            url: "${params.GRAFANA_URL}/api/datasources/name/${ds}",
+                            url: "${params.GRAFANA_URL}/api/datasources/name/${dstype}",
                             customHeaders: [
                                 [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
                                 [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
@@ -72,10 +72,10 @@ pipeline {
 
                         if (responseGet.status == 404) {
                             def requestBody = """{
-                                \"name\": \"${ds}\",
+                                \"name\": \"${dstype}\",
                                 \"type\": \"${dstype}\",
                                 \"access\": \"proxy\",
-                                \"url\": \"http://${ds}.local\",
+                                \"url\": \"http://${dstype}.local\",
                                 \"basicAuth\": false,
                                 \"isDefault\": false
                             }"""
@@ -91,9 +91,9 @@ pipeline {
                                 requestBody: requestBody
                             )
 
-                            echo "✅ Datasource '${ds}' criado com status: ${responseCreate.status}"
+                            echo "✅ Datasource '${dstype}' criado com status: ${responseCreate.status}"
                         } else {
-                            echo "ℹ️ Datasource '${ds}' já existe."
+                            echo "ℹ️ Datasource '${dstype}' já existe."
                         }
                     }
                 }
