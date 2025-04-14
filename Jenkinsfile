@@ -29,7 +29,8 @@ pipeline {
                             json.each { key, value ->
                                 if (key == 'datasource') {
                                     if (value instanceof Map && value?.type && value.type != 'datasource') {
-                                        datasources[value.type] = value.type
+                                        def name = value?.uid ? value.uid : value.type
+                                        datasources[name] = value.type
                                     }
                                 }
                                 extractTypesRecursively(value)
@@ -52,7 +53,7 @@ pipeline {
                     datasources.each { ds, dstype ->
                         def responseGet = httpRequest(
                             httpMode: 'GET',
-                            url: "${params.GRAFANA_URL}/api/datasources/name/${dstype}",
+                            url: "${params.GRAFANA_URL}/api/datasources/name/${ds}",
                             customHeaders: [
                                 [name: 'Authorization', value: "Bearer ${params.API_KEY}"],
                                 [name: 'X-Grafana-Org-Id', value: "${params.ORG_ID}"]
@@ -62,10 +63,10 @@ pipeline {
 
                         if (responseGet.status == 404) {
                             def requestBody = """{
-                                \"name\": \"${dstype}\",
+                                \"name\": \"${ds}\",
                                 \"type\": \"${dstype}\",
                                 \"access\": \"proxy\",
-                                \"url\": \"http://${dstype}.local\",
+                                \"url\": \"http://${ds}.local\",
                                 \"basicAuth\": false,
                                 \"isDefault\": false
                             }"""
@@ -81,9 +82,9 @@ pipeline {
                                 requestBody: requestBody
                             )
 
-                            echo "✅ Datasource '${dstype}' criado com status: ${responseCreate.status}"
+                            echo "✅ Datasource '${ds}' criado com status: ${responseCreate.status}"
                         } else {
-                            echo "ℹ️ Datasource '${dstype}' já existe."
+                            echo "ℹ️ Datasource '${ds}' já existe."
                         }
                     }
                 }
