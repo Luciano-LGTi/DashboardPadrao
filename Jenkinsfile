@@ -29,25 +29,24 @@ pipeline {
 
                         def types = []
 
-                        if (json?.datasource?.type) {
+                        if (json?.datasource instanceof Map && json?.datasource?.type) {
                             types << json.datasource.type
                         }
 
                         json?.templating?.list?.each { template ->
-                            if (template?.datasource?.type) {
+                            if (template?.datasource instanceof Map && template?.datasource?.type) {
                                 types << template.datasource.type
                             }
                         }
 
                         json?.panels?.each { panel ->
-                            if (panel?.datasource?.type) {
+                            if (panel?.datasource instanceof Map && panel?.datasource?.type) {
                                 types << panel.datasource.type
                             }
                             panel?.targets?.each { target ->
-                                if (target?.datasource?.type) {
+                                if (target?.datasource instanceof Map && target?.datasource?.type) {
                                     types << target.datasource.type
                                 }
-                                // IGNORA se for somente uid (string)
                             }
                         }
 
